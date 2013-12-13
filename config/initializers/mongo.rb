@@ -1,4 +1,4 @@
-unless ENV['ENV_SERVED'] == 'production'
+unless Rails.env == 'production'
   MongoMapper.connection = Mongo::Connection.new('localhost', 27017)
   MongoMapper.database = "#{APP_NAME}_#{Rails.env}"
 

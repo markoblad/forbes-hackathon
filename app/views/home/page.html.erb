@@ -1,7 +1,7 @@
 <%= render "../../public/#{I18n.locale}/www/#{params[:path]}" %>
 
 <% if user_signed_in? %>
-    <%= current_user.image_url %>
+    <%= image_tag current_user.image_url %>
     <hr />
     <%= current_user.provider %>
     <hr />

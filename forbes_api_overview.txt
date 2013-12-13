@@ -1,0 +1,255 @@
+Have questions about our API’s - Chat with us via this document.
+Below are a few ideas ( not mandatory at all ) and list of API’s. You can mash it all anyway you want!!!!
+
+1. Idea for Profile Charts
+Create a way to visualize relationships between billionaires 
+This could include plotting the changes in wealth over time compared to
+The people closest in wealth to them at any given time
+Geographic Location
+Industry
+Aggregations
+Self made vs inherited 
+Gender
+Citizenship
+Origin of Wealth
+Comparison  of any data sets
+Any relationships that can be determined based on the data
+Here are some potentially relevant Api Calls
+Person Api Call
+http://apis.forbes.com/hackathon/person/{personUri}.json?api_key=gxgpvwxya25quemzxh9r5593 Do Person Api Call
+Bill Gates Example
+http://apis.forbes.com/hackathon/person/bill-gates.json?api_key=gxgpvwxya25quemzxh9r5593
+Billionaires List
+http://apis.forbes.com/hackathon/person/billionaires/{year}/position/true.json?start={startNumberOfResults}&limit={totalNumberOfResults}&fields=name,age,source,residence,countryOfCitizenship,person&api_key=gxgpvwxya25quemzxh9r5593
+Billionaires List for 2013
+http://apis.forbes.com/hackathon/person/billionaires/2013/position/true.json?start=0&limit=10&fields=name,age,source,residence,countryOfCitizenship,person&api_key=gxgpvwxya25quemzxh9r5593 
+2. idea for Content Value/ Trend
+Determine when content is trending in the mediasphere, and would be more likely to be read, based on certain criteria. 
+3. idea for Plot Wealth
+Could be a map with geolocation information for each billionaire, company, place, maybe with the movements of those entities with a year and location relationship so you can plot changes in locations of wealth over time
+possibly could show the prominence of each company or business in each area, or on a global scale (highlight regions of the map with a color scheme based on the prominence of successful tech companies for example)
+4. idea for Relational Entity Representation in Article Content
+Devise a system of determining how entities are represented in articles on forbes
+Entities (people places companies) on forbes lists that also appear in articles
+entities that are mentioned in the same article, and whether or not they are on the same lists
+a way to search content (see which articles mention both Bill Gates and Larry Ellison, Microsoft and Oracle, and the difference between those two for example) 
+
+List Uri’s
+
+Person Url Structure:
+http://apis.forbes.com/hackathon/person/{listUri}/{year}/position/true.json?start={startOfResults}&limit={NumberOfResults}&fields=name,age,source,residence,countryOfCitizenship,person&api_key=gxgpvwxya25quemzxh9r5593
+Wealth Lists
+Forbes 400 - forbes-400
+http://www.forbes.com/forbes-400/
+Billionaires - billionaires
+http://www.forbes.com/billionaires/
+Hong Kong Rich List = hong-kong-billionaires
+http://www.forbes.com/hong-kong-billionaires/
+Australian Rich List = australia-billionaires
+http://www.forbes.com/australia-billionaires/`
+China Rich List = china-billionaires
+http://www.forbes.com/china-billionaires/
+Taiwan Rich List = taiwan-billionaires
+http://www.forbes.com/taiwan-billionaires/
+India Rich List = india-billionaires
+http://www.forbes.com/india-billionaires/
+Japan Rich List = japan-billionaires
+http://www.forbes.com/japan-billionaires/
+Africa Rich List = africa-billionaires
+http://www.forbes.com/africa-billionaires/
+Korea Rich List = korea-billionaires
+http://www.forbes.com/korea-billionaires/
+Malaysia Rich List = malaysia-billionaires
+http://www.forbes.com/malaysia-billionaires/
+Philippines Rich List = philippines-billionaires
+http://www.forbes.com/philippines-billionaires/
+Singapore Rich List = singapore-billionaires
+http://www.forbes.com/singapore-billionaires/
+Indonesia Rich List = indonesia-billionaires
+http://www.forbes.com/indonesia-billionaires/
+Thailand Rich List = thailand-billionaires
+http://www.forbes.com/thailand-billionaires/
+
+Non Wealth Person Lists
+ powerful women - power-woman
+http://www.forbes.com/power-women/
+Sample Api Call
+http://apis.forbes.com/hackathon/person/power-women/2013/position/true.json?start=0&limit=10&fields=uri,imageExists,shortUri,listShortUri,month,name,rank,personName,employment,title,gender,birthDate,countryOfCitizenship,category&api_key=gxgpvwxya25quemzxh9r5593
+celebrity 100 - celebrities
+http://www.forbes.com/celebrities/
+powerful people - powerful-people
+http://www.forbes.com/powerful-people/
+Midas List = midas
+http://www.forbes.com/midas/
+Highest Paid Athletes = athletes
+http://www.forbes.com/athletes/
+
+Places Lists
+ Best Countries for Business = best-countries-for-business
+http://www.forbes.com/best-countries-for-business/
+http://apis.forbes.com/hackathon/place/best-countries-for-business/2013/position/true.json?start=0&limit=10&fields=uri,imageExists,shortUri,listShortUri,month,name,rank,image,placeName,gdpGrowth,gdpPerCapita,tradeBalance,population&api_key=gxgpvwxya25quemzxh9r5593
+Best Places For Business - best-places-for-business
+http://www.forbes.com/best-places-for-business/
+http://apis.forbes.com/hackathon/place/best-places-for-business/2013/position/true.json?start=0&limit=10&fields=uri,imageExists,shortUri,listShortUri,month,name,rank,image,placeName,costOfDoingBusiness,jobGrowth,education,population&api_key=gxgpvwxya25quemzxh9r5593
+Best States for business = best-states-for-business		
+http://www.forbes.com/best-states-for-business/
+http://apis.forbes.com/hackathon/place/best-states-for-business/2013/position/true.json?start=0&limit=10&fields=uri,imageExists,shortUri,listShortUri,month,name,rank,image,placeName,ranks,population&api_key=gxgpvwxya25quemzxh9r5593
+
+Companies Lists
+Uri Structure
+http://apis.forbes.com/hackathon/org/{companyUri}/{year}/rank/true.json?start={startOfResults}&limit={NumberOfResults}&api_key=gxgpvwxya25quemzxh9r5593
+ Best Small Companies = best-small-companies
+http://www.forbes.com/best-small-companies/
+Sample Call for 2013
+http://apis.forbes.com/hackathon/org/best-small-companies/2013/rank/true.json?start=0&limit=10&api_key=gxgpvwxya25quemzxh9r5593
+Innovative Companies = innovative-companies
+http://www.forbes.com/innovative-companies/
+Largest Private Companies = largest-private-companies
+http://www.forbes.com/largest-private-companies/
+Asia’s Best under A Billion = asia200
+http://www.forbes.com/asia200/
+Asia’s Fab 50 = fab50
+http://www.forbes.com/fab50/
+Global 2000 = global2000
+http://www.forbes.com/global2000/
+Top Charities = top-charities
+http://www.forbes.com/top-charities/
+Most Promising Companies = most-promising-companies
+http://www.forbes.com/most-promising-companies/
+Powerful Brands = powerful-brands
+http://www.forbes.com/powerful-brands/
+
+Education Lists 
+Uri Structure: http://apis.forbes.com/hackathon/org/{uri}/{year}/rank/true.json?start={startOfResults}&limit={NumberOfResults}&api_key=gxgpvwxya25quemzxh9r5593
+Top Colleges - top-colleges
+http://www.forbes.com/top-colleges/
+sample call for 2013
+http://apis.forbes.com/hackathon/org/top-colleges/2013/rank/true.json?start=0&limit=10&api_key=gxgpvwxya25quemzxh9r5593
+Top Business Schools = business-schools
+http://www.forbes.com/business-schools/
+Top Foreign Business Schools = best-foreign-business-schools
+http://www.forbes.com/business-schools/list/international/
+
+
+
+Sports Lists
+Uri Structure
+http://apis.forbes.com/hackathon/org/{teamUri}/{year}/rank/true.json?start=0{startOfResults}&limit={NumberOfResults}&api_key=gxgpvwxya25quemzxh9r5593
+ NHL Valuations = nhl-valuations
+http://www.forbes.com/nhl-valuations/
+Sample call for 2013
+http://apis.forbes.com/hackathon/org/nhl-valuations/2013/rank/true.json?start=0&limit=10&api_key=gxgpvwxya25quemzxh9r5593
+NBA Valutations= nba-valuations
+http://www.forbes.com/nba-valuations/
+Nascar Valuations = nascar-valuations
+http://www.forbes.com/nascar-valuations/
+Major League Baseball Valuations = mlb-valuations
+http://www.forbes.com/mlb-valuations/
+Soccer Valuations = soccer-valuations
+http://www.forbes.com/soccer-valuations/
+NFL Valuations = nfl-valuations
+http://www.forbes.com/nfl-valuations/
+
+Sample Person Profile Calls
+Sports
+Lebron James - 
+profile
+http://www.forbes.com/profile/lebron-james/
+api call
+http://apis.forbes.com/hackathon/person/lebron-james.json?api_key=gxgpvwxya25quemzxh9r5593
+Powerful People/Women
+Angela Merkel - 
+profile
+http://www.forbes.com/profile/angela-merkel/
+api call
+http://apis.forbes.com/hackathon/person/angela-merkel.json?api_key=gxgpvwxya25quemzxh9r5593
+Celebrity
+Jennifer Lopez
+profile
+http://www.forbes.com/profile/jennifer-lopez/
+api call
+http://apis.forbes.com/hackathon/person/jennifer-lopez.json?api_key=gxgpvwxya25quemzxh9r5593
+Billionaires
+Amancio Ortega
+profile
+http://www.forbes.com/profile/amancio-ortega/
+api call
+http://apis.forbes.com/hackathon/person/amancio-ortega.json?api_key=gxgpvwxya25quemzxh9r5593
+Sample Places Profiles Calls
+Call Structure
+http://apis.forbes.com/hackathon/place/{placeUri}.json?api_key=gxgpvwxya25quemzxh9r5593
+ New York (state)
+http://apis.forbes.com/hackathon/place/ny.json?api_key=gxgpvwxya25quemzxh9r5593
+New York City
+Call Structure
+http://apis.forbes.com/hackathon/place/{stateUri}/{cityUri}.json?api_key=gxgpvwxya25quemzxh9r5593
+http://apis.forbes.com/hackathon/place/ny/new-york.json?api_key=gxgpvwxya25quemzxh9r5593
+United States 
+http://apis.forbes.com/hackathon/place/united-states.json?api_key=gxgpvwxya25quemzxh9r5593
+Sample Organization Calls
+ Call Structure
+http://apis.forbes.com/hackathon/org/{organizationUri}.json?api_key=gxgpvwxya25quemzxh9r5593
+Oracle
+http://apis.forbes.com/hackathon/org/oracle.json?api_key=gxgpvwxya25quemzxh9r5593
+Sample Team Calls
+Call Structure
+http://apis.forbes.com/hackathon/org/{teamUri}.json?api_key=gxgpvwxya25quemzxh9r5593
+New York Yankees
+http://apis.forbes.com/hackathon/org/new-york-yankees.json?api_key=gxgpvwxya25quemzxh9r5593
+Sample Education Calls
+Call Structure
+http://apis.forbes.com/hackathon/org/{univeristyUri}.json?api_key=gxgpvwxya25quemzxh9r5593
+Stanford University
+http://apis.forbes.com/hackathon/org/stanford-university.json?api_key=gxgpvwxya25quemzxh9r5593	
+Nest Uri Call Structure
+http://apis.forbes.com/hackathon/org/{mainSchoolUri}/{businessSchoolUri}.json?api_key=gxgpvwxya25quemzxh9r5593
+Stanford Business School
+http://apis.forbes.com/hackathon/org/stanford-university/stanford-graduate-school-of-business.json?api_key=gxgpvwxya25quemzxh9r5593
+
+Notes:
+All Api Calls return json
+Not all entities (people, places, companies etc) will have the same fields, it is highly dependent on the lists that the entity has been on and the data that is available, so handling missing data is a big part of working with this data set 
+All api calls require a parameter of 
+api_key=gxgpvwxya25quemzxh9r5593
+in order to connect to the api 
+If there are already parameters, prepend a “&” to the key and append to the url (...someValue=0&api_key…)
+If there are no parameters, append a “?” instead (...endOfCall.json?api_key…)
+
+Articles
+Get Real Time Stream
+Get’s the latest {limit} stories for a {channel}
+http://apis.forbes.com/hackathon/contents/stream/all/{channel}.json?fields=uri,naturalId,generatedId,tickers,type,date,body,authors,title,description,image,blogType,slides,commentCount,calledOutCommentCount,magazine,manualDescription&limit={limit}&api_key=gxgpvwxya25quemzxh9r5593
+Get latest 20 stories for All Channels (everything)
+http://apis.forbes.com/hackathon/contents/stream/all/all.json?fields=uri,naturalId,generatedId,tickers,type,date,body,authors,title,description,image,blogType,slides,commentCount,calledOutCommentCount,magazine,manualDescription&limit=20&api_key=gxgpvwxya25quemzxh9r5593
+
+Get a list of all the channels on forbes
+http://apis.forbes.com/hackathon/channels.json?api_key=gxgpvwxya25quemzxh9r5593
+You can use the Id of the channel for the get latest stories call
+Get the Article Stream for a channel
+http://apis.forbes.com/hackathon/contents/stream/{channel}.json?limit={numberOfResults}&start={startOfResults}&api_key=gxgpvwxya25quemzxh9r5593
+example: Business Channel
+
+
+Get the Article Stream for a section of a channel
+http://apis.forbes.com/hackathon/contents/stream/{channel}/{section}.json?limit={numberOfResults}&start={startNumber}&api_key=gxgpvwxya25quemzxh9r5593
+example: Business Channel, Autos Section
+http://apis.forbes.com/hackathon/contents/stream/channel_1/section_1.json?limit=10&start=0&api_key=gxgpvwxya25quemzxh9r5593
+Get all of the authors who have contributed to a channel
+http://apis.forbes.com/hackathon/channel/authors/{channel}.json?api_key=gxgpvwxya25quemzxh9r5593
+example: Business Channel	
+http://apis.forbes.com/hackathon/channel/authors/channel_1.json?api_key=gxgpvwxya25quemzxh9r5593
+Get all of the authors who have contributed to a section of a channel
+http://apis.forbes.com/hackathon/channel/authors/{channel}/{section}.json?api_key=gxgpvwxya25quemzxh9r5593
+example: Business Channel, Autos Section
+http://apis.forbes.com/hackathon/channel/authors/channel_1/section_1.json?api_key=gxgpvwxya25quemzxh9r5593
+
+Get Article By Uri
+http://apis.forbes.com/hackathon/content/uri.json?uri={uri}&api_key=gxgpvwxya25quemzxh9r5593
+example: Is Everyday Math the worst math program ever
+http://apis.forbes.com/hackathon/content/uri.json?uri=http://www.forbes.com/sites/emilywillingham/2013/12/10/is-everyday-math-the-worst-math-program-ever/&api_key=gxgpvwxya25quemzxh9r5593
+The uri can be found in the listing of articles from a stream
+It will look like a full url, but don’t worry, that is the correct syntax and shouldn’t require any stripping or formatting
+
+
+
+http://apis.forbes.com/hackathon/org/global2000/2013/position/true.json?start=0&limit=2000&api_key=gxgpvwxya25quemzxh9r5593

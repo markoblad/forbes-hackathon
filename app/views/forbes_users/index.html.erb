@@ -1,25 +1,26 @@
-<h1>Listing forbes_users</h1>
+<h1>What's new in your network today?</h1>
 
-<table>
-  <tr>
-    <th>Username</th>
-    <th>Linkedin</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
 
-<% @forbes_users.each do |forbes_user| %>
-  <tr>
-    <td><%= forbes_user.username %></td>
-    <td><%= forbes_user.linkedin %></td>
-    <td><%= link_to 'Show', forbes_user %></td>
-    <td><%= link_to 'Edit', edit_forbes_user_path(forbes_user) %></td>
-    <td><%= link_to 'Destroy', forbes_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+<% @articles.each do |article| %>
+  <div class="row">
+     <div class="span3 offset 1">
+       <div>
+         <div class="contacts-header">You have <% article.company.contacts.length %> contacts at <% article.company.name %> </div>
+       </div>
+       <% article.company.contacts.each do |contact| %>
+	  <a href="<% contact.url %>"><img src="<% contact.image_url %>" hspace="10" vspace="10"></a>
+       <% end %>
+     </div>
+     <div class="span 7">
+       <div class="date-header">
+         <a href="<% article.forbes_url %>"> <% article.published_date %> | <% article.published_time %> | <% published_city %> </a>
+       </div>
+       <div class="article-stub">
+         <a href="<% article.forbes_url %>"> <% article.stub %> </a>
+       </div>
+     </div>
+  </div>
 <% end %>
-</table>
 
-<br />
 
 <%= link_to 'New Forbes user', new_forbes_user_path %>

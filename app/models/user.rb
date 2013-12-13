@@ -32,6 +32,8 @@ class User
   field :login_params, :type => String, :default => ""
   field :image_url, :type => String, :default => ""
   field :name, :type => String, :default => ""
+  field :profile_url, :type => String, :default => ""
+  field :connections, :type => Array, :default => ""
 
   ## Confirmable
   # field :confirmation_token,   :type => String

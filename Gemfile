@@ -1,12 +1,22 @@
 source 'https://rubygems.org'
 
+ruby '1.9.3'
+
 gem 'rails', '3.2.11'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+gem 'mongo'
+gem 'mongo_mapper'
+gem 'bson_ext'
 
+gem 'json'
+gem 'devise' #user management
+gem 'settingslogic' #config settings in yaml
+gem 'uuidtools'
+gem 'aws-sdk', '~> 1.3.4'
+gem 'heroku'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -21,6 +31,8 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'bootstrap-sass'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -29,7 +41,7 @@ gem 'jquery-rails'
 # gem 'jbuilder'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'

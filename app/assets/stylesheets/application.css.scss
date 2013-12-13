@@ -1,0 +1,77 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require bootstrap_and_overrides
+*/
+
+$placeholderText: #aaaaaa;
+$warningText: #c09853;
+$warningBackground: #fcf8e3;
+$warningBorder: darken($warningBackground, 5%);
+$errorText: #dd6644;
+$errorBackground: #f2dede;
+$errorBorder: #b94a48;
+$successText: #44aa66;
+$successBackground: #dff0d8;
+$successBorder: #468847;
+$preheaderBackground: #333333;
+
+$footerHeight: 480px;
+
+label {
+	font-weight: bold;
+	&.error {
+		margin-top: 0 !important;
+		color: $errorText !important;
+		font-size: 11px;
+		font-weight: normal;
+	}
+}
+
+input {
+	&.error {	
+		margin-bottom: 0 !important;
+		border: 1px solid $errorBorder !important;
+		background-color: $errorBackground !important;
+		color: $errorText !important;
+	}
+	&.success {	
+		margin-bottom: 0 !important;
+		border: 1px solid $successBorder !important;
+		background-color: $successBackground !important;
+		color: $successText !important;
+	}
+}
+
+.first-name, .last-name, .password, .confirm {
+  float: left;
+  margin-right: 10px;
+}
+.first-name, .last-name {
+  input {
+    width: 150px;
+  }
+}
+.email {
+  clear: both;
+  input {
+    width: 310px;
+  }
+}
+.password, .confirm {
+  margin-bottom: 10px;
+  input {
+    width: 150px;
+  }
+}
+.phone, .status {
+  clear: both;
+}

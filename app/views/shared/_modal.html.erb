@@ -1,0 +1,38 @@
+<%
+model ||= instance.class.name.downcase
+this = Settings.models.send(model)
+attrCategory = ''
+if category.present?
+  attrCategory += '-'+category
+  this = Settings.models.send(model).categories[category_index]
+end
+refresh ||= false
+attributes ||= {}
+attrStr = get_attribute_string(attributes)
+@parent = parent
+%>  <div class="modal hide fade" id="modal-<%= model %><%= attrCategory %>" tabindex="-1" role="dialog" aria-labelledby="label-modal-<%= model %><%= attrCategory %>" aria-hidden="true"<%= raw attrStr %>>
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal" aria-hidden="true"><i class="halficon-close"></i></a>
+      <h3 class="title" id="label-modal-<%= model %><%= attrCategory %>"><i class="icon-<%= model %><%= attrCategory %>"></i><%= t(this.form.title, :default => this.form.title) %></h3>
+    </div>
+<%= form_for([:builder, instance], :html => { :multipart => multipart, :refresh => refresh }) do |form| %>
+    <div class="modal-body">
+
+<% this.form.fieldsets.each do |fieldset|
+  fieldset['category'] ||= category
+  fieldset['type'] ||= nil
+  show_fieldset(form, fieldset)
+end -%>
+
+    </div>
+    <div class="modal-footer">
+<% if category.present?
+  concat raw form.hidden_field :category, :value => category
+end %>
+<%= hidden_field_tag "#{parent.class.name.downcase}_id".to_sym, parent.id %>
+<%= hidden_field_tag :_method %>
+      <%= form.submit :Submit, :class => "submit button" %>
+      <button data-dismiss="modal" aria-hidden="true" class="cancel">Cancel</button>
+    </div>
+<% end -%>
+  </div>

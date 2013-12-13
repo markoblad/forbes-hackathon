@@ -1,0 +1,7 @@
+<%= render "../../public/#{I18n.locale}/#{request.subdomain}/#{params[:path]}" %>
+<%
+rescue
+  raise ActionController::RoutingError.new('Not Found')
+ -%>
+
+

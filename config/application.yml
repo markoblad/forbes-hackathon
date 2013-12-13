@@ -1,0 +1,37 @@
+--- 
+# ------------------------------------------------------------
+#
+#   Settings:
+#   ERB-enabled settings using settingslogic
+#   Note: Avoid system attributes/methods, such as class, store, etc.
+#
+# ------------------------------------------------------------
+defaults: &defaults
+  application:
+    name: Forbes Hackathon App
+  home:
+    menus:
+      header:
+        - attributes: {cssClass: menu, id: menu-main}
+          items:
+            - label: home.page.how-it-works.label
+              url: '/how-it-works'
+
+development:
+  <<: *defaults
+  url:
+    protocol: http://
+    domain: lvh.me
+    host: lvh.me:3000
+    subdomain: www
+
+production:
+  <<: *defaults
+  url:
+    protocol: http://
+    domain: herokuapp.com
+    host: herokuapp.com
+    subdomain: forbes-hackathon
+  google:
+    analytics:
+      account: UA-XXXXXXXX-1

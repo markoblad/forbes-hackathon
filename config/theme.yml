@@ -1,0 +1,69 @@
+--- 
+meta:
+  - charset: 'utf-8'
+  - http-equiv: 'X-UA-Compatible'
+    content: 'IE=edge,chrome=1'
+  - name: 'viewport'
+    content: 'width=device-width,initial-scale=1.0'
+  - property: 'og:image'
+    content: 'http://about.grade.us/assets/guide_render_sm.png'
+scripts:
+  - url: 'https://www.google.com/jsapi'
+    dependencies: []
+    version: NULL
+    in_footer: FALSE
+  - content: 'google.load("visualization", "1", {packages:["corechart"]});'
+    in_footer: FALSE
+styles:
+  - content: '#ogimage { display: none; }'
+    in_footer: FALSE
+favicons:
+  - rel: 'shortcut icon'
+    href: '/assets/favicon.ico'
+  - rel: 'apple-touch-icon'
+    href: '/assets/apple-touch-icon.png'
+  - rel: 'apple-touch-icon'
+    sizes: '57x57'
+    href: '/assets/apple-touch-icon-57x57.png'
+  - rel: 'apple-touch-icon'
+    sizes: '72x72'
+    href: '/assets/apple-touch-icon-72x72.png'
+  - rel: 'apple-touch-icon'
+    sizes: '114x114'
+    href: '/assets/apple-touch-icon-114x114.png'
+layout:
+  - style: 'background-color: #ebebeb'
+    nested: [{class: wrap}, {class: container}, {class: inner}, {class: innermost}]
+    rows: 
+      - class: row clearfix
+        cols: 
+          - id: alerts
+            template: alerts
+  - id: header
+    rows:
+      - class: container
+        nested: [{class: row}]
+        cols:
+          - id: brand
+            class: span3
+            template: shared/brand
+          - id: menus
+            class: span9
+            rows:
+              - cols:
+                  - call: menus(Settings.home.menus.header)
+  - id: content
+    class: container
+#    homepage: true
+    rows:
+      - class: row
+        template: shared/content
+      - id: push-footer
+  - id: footer
+    nested: [{class: container}]
+    rows:
+      - class: row
+        cols:
+        - class: span4
+          nested: [{class: block}]
+          html: 'Copyright &copy; 2013 | All rights reserved.'

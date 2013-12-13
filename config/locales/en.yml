@@ -3,3 +3,18 @@
 
 en:
   hello: "Hello world"
+  application:
+    title: Forbes Hackathon App
+  home:
+    page:
+      forbes-hackathon:
+        index:
+          title: App Requires Domain/DNS to Work
+      index:
+        label: Home
+        title: This is Home
+        description: ''
+      how-it-works:
+        label: How It Works
+        title: How It Works
+        description: ''

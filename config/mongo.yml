@@ -1,0 +1,16 @@
+defaults: &defaults
+  host: 127.0.0.1
+  port: 27017
+
+development:
+  <<: *defaults
+  database: forbes_hackathon_development
+
+test:
+  <<: *defaults
+  database: forbes_hackathon_test
+
+# set these environment variables on your prod server
+production:
+  <<: *defaults
+  uri: <%= ENV['MONGOHQ_URL'] %>

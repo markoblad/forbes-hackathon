@@ -1,0 +1,72 @@
+<%
+@page_data = YAML.load_file("#{Rails.root}/config/theme.yml")
+@layout = @page_data['layout']
+@page = @page_data
+path = ''
+body_class = ''
+if request.subdomain && request.subdomain != Settings.url.subdomain
+  path += '.' + request.subdomain
+  body_class = request.subdomain + '-'
+end
+if params[:path]
+  path += '.' + params[:path]
+  body_class += params[:path]
+end
+
+-%><!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie10 lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie10 lt-ie9" lang="en"><![endif]-->
+<!--[if IE 9]><html class="no-js lt-ie10" lang="en"><![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+	
+<!-- Simple test for JS support -->
+<script>
+document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<%= csrf_meta_tags %>
+<%
+show_meta(@page_data['meta'])
+show_styles(@page_data['styles'])
+show_scripts(@page_data['scripts'])
+show_favicons(@page_data['favicons'])
+%>
+
+<title><%= t("#{controller_path}.#{action_name}#{path}.title") %> | <%= t('application.title') %></title>
+<meta name="description" content="<%= t("#{params[:controller]}.#{action_name}#{path}.description") %>">
+<meta name="robots" content="index, follow">
+
+<%= stylesheet_link_tag "home", :media => "all" %>
+
+</head>
+<body class="<%= controller_name %> <%= controller_name %>-<%= action_name %> <%= body_class %>">
+<div id="super-container">
+<!--[if lt IE 7]>
+    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+<div id="super-header"><div id="super-header-inner"></div></div>
+<a name="top"></a>
+
+<%
+show_layout(@layout)
+%>
+
+</div><!-- End #super-container -->
+
+<%= javascript_include_tag "home" %>
+<%= yield :js %>
+
+<% if ENV['ENV_SERVED'] == "production" -%>
+<script>
+    var _gaq=[['_setAccount','<%= Settings.google.analytics.account %>'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+
+<% end -%>
+</body>
+</html>

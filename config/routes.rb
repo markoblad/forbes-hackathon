@@ -1,6 +1,9 @@
 ForbesHackathon::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
+  
+  match '(*path)' => 'home#page', :defaults => {:path => 'index'}
+  root :to => 'home#page'
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

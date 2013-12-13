@@ -9,29 +9,5 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require bootstrap_and_overrides
+ 
 */
-
-$footerHeight: 100px;
-
-html, body, #super-container {
-	height: 100%;
-	margin: 0;
-	padding: 0;
-}
-
-#header {
-}
-
-// Sticky footer:
-#content {
-	min-height: 80%;
- 	height: 80%;
-	height: auto;
-	margin: 0 auto -$footerHeight;
-}
-
-#footer, #push-footer {
-	height: $footerHeight;
-	clear: both;
-}

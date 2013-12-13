@@ -25,7 +25,7 @@ gem 'rubypython'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
+  #gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -36,7 +36,12 @@ end
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'bootstrap-sass'
+#gem 'bootstrap-sass'
+
+gem 'therubyracer', :platforms => :ruby
+gem 'less-rails', :git => 'https://github.com/metaskills/less-rails.git'
+gem 'twitter-bootstrap-rails', :git => 'https://github.com/seyhunak/twitter-bootstrap-rails.git'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

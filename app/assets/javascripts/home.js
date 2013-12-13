@@ -12,7 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
+//= require twitter/bootstrap/bootstrap-transition
+//= require twitter/bootstrap/bootstrap-alert
+//= require twitter/bootstrap/bootstrap-modal
+//= require twitter/bootstrap/bootstrap-button
+//= require twitter/bootstrap/bootstrap-tab
 //= require jquery.ui.sortable
 
 

@@ -3,6 +3,10 @@ ForbesHackathon::Application.routes.draw do
   resources :forbes_users
   
   devise_for :users
+  as :user do
+    get 'signup' => 'registrations#new', :as => :new_user_registration
+    get 'signin' => 'sessions#new', :as => :new_user_session
+  end
 
 
   # The priority is based upon order of creation:

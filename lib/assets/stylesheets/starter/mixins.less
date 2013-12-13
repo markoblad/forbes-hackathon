@@ -1,0 +1,809 @@
+//Modernizr detects whether features are available:  CSS3 features like @font-face, border-radius, border-image, box-shadow, rgba() and so forth, as well as HTML5 features like audio, video, localStorage, and the new <input> element types and attributes
+//Modernizr also makes the new HTML5 elements available for styling in Internet Explorer, so that you can start using their improved semantics right away.
+//  IE6 + IE7:
+//  z-index on containing divs is used in stack order; child item z-index is irrelevant
+//  IE6
+//  Limit: two classes per element
+//  Attribute selectors (e.g. input[att=val]) support starts in IE7
+//  Support for max-min starts in IE7
+//  For PNG transparency, use iepngfix.htc and make sure "blankImg" is correct
+
+// Shadow/emboss until LESS gets a contrast function
+// @shadowColor: darken(#fff, lightness(@foreground));
+
+// Set alpha on a regular RGB/Hex color:
+// hsla(hue(@color), saturation(@color), lightness(@color), @alpha)
+
+.input-to-full-width-hack() {
+  display: block;
+  width: 100%;
+  box-sizing: border-box; /* css3 rec */
+  -moz-box-sizing: border-box; /* ff2 */
+  -ms-box-sizing: border-box; /* ie8 */
+  -webkit-box-sizing: border-box; /* safari3 */
+  -khtml-box-sizing: border-box; /* konqueror */
+}
+
+// TODO: three-slice-horizontal, three-slice-vertical
+.nine-slice(@sideSize: 10px, @cornerSize: 10px) {
+	.top-left {
+		position: absolute;
+		width: @cornerSize;
+		height: @cornerSize;
+		left: 0;
+		top: 0;
+		background-repeat: no-repeat;
+	}
+	.top {
+		position: absolute;
+		height: @sideSize;
+		left: @cornerSize;
+		top: 0;
+		right: @cornerSize;
+		background-repeat: repeat-x;
+	}
+	.top-right {
+		position: absolute;
+		width: @cornerSize;
+		height: @cornerSize;
+		top: 0;
+		right: 0;
+		background-repeat: no-repeat;
+	}
+	.left {
+		position: absolute;
+		width: @sideSize;
+		left: 0;
+		right: auto;
+		top: @cornerSize;
+		bottom: @cornerSize;
+		background-repeat: repeat-y;
+	}
+	.middle {
+		position: absolute;
+		left: @sideSize;
+		top: @sideSize;
+		right: @sideSize;
+		bottom: @sideSize;
+		background-repeat: repeat;
+	}
+	.right {
+		position: absolute;
+		width: @sideSize;
+		top: @cornerSize;
+		right: 0;
+		bottom: @cornerSize;
+		background-repeat: repeat-y;
+	}
+	.bottom-left {
+		position: absolute;
+		width: @cornerSize;
+		height: @cornerSize;
+		left: 0;
+		bottom: 0;
+		background-repeat: no-repeat;
+	}
+	.bottom {
+		position: absolute;
+		height: @sideSize;
+		left: @cornerSize;
+		right: @cornerSize;
+		bottom: 0;
+		background-repeat: repeat-x;
+	}
+	.bottom-right {
+		position: absolute;
+		width: @cornerSize;
+		height: @cornerSize;
+		right: 0;
+		bottom: 0;
+		background-repeat: no-repeat;
+	}
+}
+
+
+.style-button-flat(@textColor, @backgroundColor) {
+	display: inline-block;
+	cursor: pointer;
+	color: @textColor;
+	background-color: @backgroundColor;
+	background-image: none;
+	*display: inline; // IE7 inline-block hack
+  *zoom: 1;
+}
+
+.style-button-gradient(@textColor, @backgroundColor, @gradientContrast:10%) {
+	display: inline-block;
+	cursor: pointer;
+	color: @textColor;
+	.background-gradient(vertical, lighten(@backgroundColor, @gradientContrast), darken(@backgroundColor, @gradientContrast));
+	.reset-filter(); // kill gradient in IE when border-radius
+	*display: inline; // IE7 inline-block hack
+  *zoom: 1;
+}
+
+.style-button-borders(@baseColor, @borderContrast:10%, @borderWidth:1px) {
+	border: @borderWidth solid lighten(@baseColor, 0.5*@borderContrast);
+	border-top: @borderWidth solid lighten(@baseColor, 1.5*@borderContrast);
+	border-bottom: @borderWidth solid darken(@baseColor, 0.5*@borderContrast);
+}
+
+.style-text-emboss(@textColor, @textAlpha:1.0, @shadowAlphaLight:0.25, @shadowAlphaDark:0.33) {
+	color: hsla(hue(@textColor), saturation(@textColor), lightness(@textColor), @textAlpha);
+	-webkit-text-shadow: -1px -1px 0 rgba(0,0,0,@shadowAlphaDark), 1px 1px 0 rgba(255,255,255,@shadowAlphaLight);
+	-moz-text-shadow: -1px -1px 0 rgba(0,0,0,@shadowAlphaDark), 1px 1px 0 rgba(255,255,255,@shadowAlphaLight);
+	-o-text-shadow: -1px -1px 0 rgba(0,0,0,@shadowAlphaDark), 1px 1px 0 rgba(255,255,255,@shadowAlphaLight);
+	text-shadow: -1px -1px 0 rgba(0,0,0,@shadowAlphaDark), 1px 1px 0 rgba(255,255,255,@shadowAlphaLight);
+}
+
+.style-box-emboss(@boxColor, @boxAlpha:1.0, @shadowAlphaLight:0.25, @shadowAlphaDark:0.33) {
+	background-color: hsla(hue(@boxColor), saturation(@boxColor), lightness(@boxColor), @boxAlpha);
+	-webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,@shadowAlphaDark), 1px 1px 0 rgba(255,255,255,@shadowAlphaLight);
+	-moz-box-shadow: inset 1px 1px 0 rgba(0,0,0,@shadowAlphaDark), 1px 1px 0 rgba(255,255,255,@shadowAlphaLight);
+	-o-box-shadow: inset 1px 1px 0 rgba(0,0,0,@shadowAlphaDark), 1px 1px 0 rgba(255,255,255,@shadowAlphaLight);
+	box-shadow: inset 1px 1px 0 rgba(0,0,0,@shadowAlphaDark), 1px 1px 0 rgba(255,255,255,@shadowAlphaLight);
+}
+
+
+.transition(@property:all, @duration:0.2s, @easing:ease, @delay:0) {
+	-webkit-transition: @property @duration @easing @delay;
+	-moz-transition: @property @duration @easing @delay;
+	-o-transition: @property @duration @easing @delay;
+	transition: @property @duration @easing @delay;
+}
+
+////////////////////////////////////////////////////////////
+//
+//  Backgrounds
+//
+////////////////////////////////////////////////////////////
+
+.background-image(@backgroundImagePath:none, @backgroundPosition:left top, @backgroundRepeat:no-repeat) when not (@backgroundImagePath = none) {
+	background-image: url("@{backgroundImagePath}");
+	background-position: @backgroundPosition;
+	background-repeat: @backgroundRepeat;
+}
+.background-image(@backgroundImagePath:none, @backgroundPosition:left top, @backgroundRepeat:no-repeat) when (@backgroundImagePath = none) {
+	background-image: none;
+}
+
+
+////////////////////////////////////////////////////////////
+//
+//  Background Gradients
+//
+////////////////////////////////////////////////////////////
+
+.background-gradient(none, @startColor, @endColor, @angle:0deg, @midColor:#fff, @colorStop:50%) {}
+
+.background-gradient(vertical, @startColor, @endColor, @angle:0deg, @startAlpha:1, @endAlpha:1) {
+	background-image: -moz-linear-gradient(top, hsla(hue(@startColor), saturation(@startColor), lightness(@startColor), @startAlpha) 0%, hsla(hue(@endColor), saturation(@endColor), lightness(@endColor), @endAlpha) 100%); // FF 3.6+
+	background-image: -ms-linear-gradient(top, hsla(hue(@startColor), saturation(@startColor), lightness(@startColor), @startAlpha) 0%, hsla(hue(@endColor), saturation(@endColor), lightness(@endColor), @endAlpha) 100%); // IE10
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(hsla(hue(@startColor), saturation(@startColor), lightness(@startColor), @startAlpha)), to(hsla(hue(@endColor), saturation(@endColor), lightness(@endColor), @endAlpha))); // Safari 4+, Chrome 2+
+	background-image: -webkit-linear-gradient(top, hsla(hue(@startColor), saturation(@startColor), lightness(@startColor), @startAlpha) 0%, hsla(hue(@endColor), saturation(@endColor), lightness(@endColor), @endAlpha) 100%); // Safari 5.1+, Chrome 10+
+	background-image: -o-linear-gradient(top, hsla(hue(@startColor), saturation(@startColor), lightness(@startColor), @startAlpha) 0%, hsla(hue(@endColor), saturation(@endColor), lightness(@endColor), @endAlpha) 100%); // Opera 11.10
+	background-image: linear-gradient(top, hsla(hue(@startColor), saturation(@startColor), lightness(@startColor), @startAlpha) 0%, hsla(hue(@endColor), saturation(@endColor), lightness(@endColor), @endAlpha) 100%); // The standard
+	background-repeat: repeat-x;
+	filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@startColor,@endColor)); // IE9 and down
+	zoom: 1;
+}
+
+.background-gradient(horizontal, @startColor, @endColor, @angle:0deg, @midColor:#fff, @colorStop:100%) {
+	background-color: @endColor;
+    background-image: -moz-linear-gradient(left, @startColor, @endColor); // FF 3.6+
+    background-image: -ms-linear-gradient(left, @startColor, @endColor); // IE10
+    background-image: -webkit-gradient(linear, 0 0, 100% 0, from(@startColor), to(@endColor)); // Safari 4+, Chrome 2+
+    background-image: -webkit-linear-gradient(left, @startColor, @endColor); // Safari 5.1+, Chrome 10+
+    background-image: -o-linear-gradient(left, @startColor, @endColor); // Opera 11.10
+    background-image: linear-gradient(left, @startColor, @endColor); // Le standard
+    background-repeat: repeat-x;
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",@startColor,@endColor)); // IE9 and down
+    zoom: 1;
+}
+
+.background-gradient(directional, @startColor, @endColor, @angle:0deg, @midColor:#fff, @colorStop:100%) {
+	background-color: @endColor;
+    background-repeat: repeat-x;
+    background-image: -moz-linear-gradient(@angle, @startColor, @endColor); // FF 3.6+
+    background-image: -ms-linear-gradient(@angle, @startColor, @endColor); // IE10
+    background-image: -webkit-linear-gradient(@angle, @startColor, @endColor); // Safari 5.1+, Chrome 10+
+    background-image: -o-linear-gradient(@angle, @startColor, @endColor); // Opera 11.10
+    background-image: linear-gradient(@angle, @startColor, @endColor); // The standard
+}
+
+.background-gradient(vertical-three-colors, @startColor, @endColor, @angle:0deg, @midColor:#fff, @colorStop:100%) {
+    background-color: mix(@midColor, @endColor, 80%);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@startColor), color-stop(@colorStop, @midColor), to(@endColor));
+    background-image: -webkit-linear-gradient(@startColor, @midColor @colorStop, @endColor);
+    background-image: -moz-linear-gradient(top, @startColor, @midColor @colorStop, @endColor);
+    background-image: -ms-linear-gradient(@startColor, @midColor @colorStop, @endColor);
+    background-image: -o-linear-gradient(@startColor, @midColor @colorStop, @endColor);
+    background-image: linear-gradient(@startColor, @midColor @colorStop, @endColor);
+    background-repeat: no-repeat;
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@startColor,@endColor)); // IE9 and down, gets no color-stop at all for proper fallback
+    zoom: 1;
+}
+
+.background-gradient(radial, @startColor, @endColor, @position:center center, @shape:circle, @startColorStop: 0%, @endColorStop: 100%) {
+    background-color: @endColor;
+    background: -webkit-gradient(radial, @position, 0px, @position, 100%, color-stop(@startColorStop, @startColor), color-stop(@endColorStop, @endColor));
+    background-image: -webkit-radial-gradient(@position, @shape, @startColor @startColorStop, @endColor @endColorStop);
+    background-image: -moz-radial-gradient(@position, @shape, @startColor @startColorStop, @endColor @endColorStop);
+    background-image: -ms-radial-gradient(@position, @shape, @startColor @startColorStop, @endColor @endColorStop);
+    background-image: -o-radial-gradient(@position, @shape, @startColor @startColorStop, @endColor @endColorStop);
+    background-repeat: no-repeat;
+}
+
+.reset-filter() {
+  filter: e(%("progid:DXImageTransform.Microsoft.gradient(enabled = false)"));
+}
+
+
+////////////////////////////////////////////////////////////
+//
+//  Borders
+//
+////////////////////////////////////////////////////////////
+
+.borders(@borderWidth, @borderStyle, @borderColor) {
+	.do-nothing();
+}
+.border-radius(@borderRadius) {
+	.do-nothing();
+}
+
+.borders(@borderWidth, @borderStyle, @borderColor) when not (@borderWidth = 0) {
+	border-width: @borderWidth;
+	border-style: @borderStyle;
+	border-color: @borderColor;
+}
+
+.border-radius(@borderRadius) when not (@borderRadius = 0) {
+	-webkit-border-radius: @borderRadius;
+	-khtml-border-radius: @borderRadius;
+	-moz-border-radius: @borderRadius;
+	-o-border-radius: @borderRadius;
+	border-radius: @borderRadius;
+}
+
+
+////////////////////////////////////////////////////////////
+//
+//  Typography
+//
+////////////////////////////////////////////////////////////
+
+.typography(@textAlign:left, @fontSize:14px, @fontFamily:sans, @fontWeight:normal, @fontStyle:normal, @lineHeight:100%, @textTransform:none) {
+	text-align: @textAlign;
+	font-size: @fontSize;
+	font-family: @fontFamily;
+	font-weight: @fontWeight;
+	font-style: @fontStyle;
+	line-height: @lineHeight;
+	text-transform: @textTransform;
+	body, p, blockquote, pre, 
+	abbr, acronym, address, big, cite, code, center,
+	dl, dt, dd, ol, ul, li,
+	fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td,
+	article, aside, canvas, details, embed, 
+	figure, figcaption, footer, header, hgroup, 
+	menu, nav, output, ruby, section, summary,
+	time, mark, audio, video {
+		text-align: @textAlign;
+		font-size: @fontSize;
+		font-family: @fontFamily;
+		font-weight: @fontWeight;
+		font-style: @fontStyle;
+		line-height: @lineHeight;
+		text-transform: @textTransform;
+	}
+}
+
+
+////////////////////////////////////////////////////////////
+//
+//  Lists
+//
+////////////////////////////////////////////////////////////
+
+
+.list-format(@listFormat) {
+	.do-nothing();
+}
+
+.list-format(row) {
+	ul {
+		list-style: none;
+    	list-style-type: none;
+    	display: block;
+    	margin: 0;
+		padding: 0;
+	}
+	ul li {
+		list-style: none;
+		list-style-image: none;
+		display: block;
+		position: relative;
+		float: left;
+		margin: 0;
+		padding: 0;
+		text-align: center;
+		border-top: none;
+		border-bottom: none;
+	}
+}
+
+.list-format(column) {
+	ul {
+		list-style: none;
+    	list-style-type: none;
+    	display: block;
+    	margin: 0;
+		padding: 0;
+	}
+	ul li {
+		list-style: none;
+		list-style-image: none;
+		position: relative;
+		float: none;
+		margin: 0;
+		padding: 0;
+		text-align: left;
+		border-left: none;
+		border-right: none;
+	}
+}
+
+.list-format(none) {
+	ul {
+		list-style: none;
+    	list-style-type: none;
+    	display: block;
+		margin: 0;
+		padding: 0;
+	}
+	ul li {
+		list-style: none;
+		list-style-image: none;
+		float: none;
+		text-align: left;
+		margin: 0;
+		padding: 0;
+	}
+}
+
+
+////////////////////////////////////////////////////////////
+//
+//  List Dividers
+//
+////////////////////////////////////////////////////////////
+
+.list-dividers(@listFormat, @listItemDividerWidth, @listItemDividerStyle, @listItemDividerColor, @listEndcaps, @listItemBackgroundColor, @listItemBackgroundColorHover) {
+	.do-nothing();
+}
+
+.list-dividers(@listFormat, @listItemDividerWidth, @listItemDividerStyle, @listItemDividerColor, @listEndcaps:none, @listItemBackgroundColor:transparent, @listItemBackgroundColorHover:transparent) {
+	ul {
+		.list-dividers-ul(@listFormat, @listItemDividerWidth, @listItemDividerStyle, @listItemDividerColor, @listEndcaps);
+	}
+	ul li {
+		.list-dividers-li(@listFormat, @listItemDividerWidth, @listItemDividerStyle, @listItemDividerColor);
+		&:hover, &:active {
+			.list-dividers-li-hover(@listFormat, @listItemDividerWidth, @listItemDividerStyle, @listItemBackgroundColor, @listItemBackgroundColorHover);
+		}
+	}
+}
+
+.list-dividers-li-hover(@listFormat, @listItemDividerWidth, @listItemDividerStyle, @listItemBackgroundColor, @listItemBackgroundColorHover) {
+	.do-nothing();
+}
+
+// Note: If there is a bevel divider and a hover color, hide the bevel on hover.
+.list-dividers-li-hover(@listFormat, @listItemDividerWidth, bevel, @listItemBackgroundColor, @listItemBackgroundColorHover) when not (@listItemDividerWidth = 0) and not (@listItemBackgroundColor = @listItemBackgroundColorHover) {
+	border-color: transparent;
+}
+
+.list-dividers-clear(@listFormat, @listEndcaps, @listItemDividerStyle) {
+	.do-nothing();
+}
+
+.list-dividers-clear(row, @listEndcaps:none, @listItemDividerStyle:solid) when not (@listItemDividerStyle = bevel) and (@listEndcaps = right),  (@listEndcaps = left-right) {
+	border-right: none;
+}
+
+.list-dividers-clear(column, @listEndcaps:none, @listItemDividerStyle:solid) when not (@listItemDividerStyle = bevel) and (@listEndcaps = bottom),  (@listEndcaps = top-bottom) {
+	border-bottom: none;
+}
+
+.list-dividers-clear-first(@listFormat, @listEndcaps, @listItemDividerStyle) {
+	.do-nothing();
+}
+
+.list-dividers-clear-first(row, @listEndcaps:none, @listItemDividerStyle:solid) when (@listEndcaps = left),  (@listEndcaps = left-right) {
+	border-left: none;
+}
+
+.list-dividers-clear-first(column, @listEndcaps:none, @listItemDividerStyle:solid) when (@listEndcaps = top),  (@listEndcaps = top-bottom) {
+	border-top: none;
+}
+
+.list-dividers-clear-last(@listFormat, @listEndcaps, @listItemDividerStyle) {
+	.do-nothing();
+}
+
+.list-dividers-clear-last(row, @listEndcaps:none, @listItemDividerStyle:solid) when not (@listItemDividerStyle = bevel) {
+	border-right: none;
+}
+
+.list-dividers-clear-last(column, @listEndcaps:none, @listItemDividerStyle:solid) when not (@listItemDividerStyle = bevel) {
+	border-bottom: none;
+}
+
+.list-dividers-clear-last(row, @listEndcaps:none, @listItemDividerStyle:solid) when (@listItemDividerStyle = bevel) and (@listEndcaps = right), (@listEndcaps = left-right) {
+	border-right: none;
+}
+
+.list-dividers-clear-last(column, @listEndcaps:none, @listItemDividerStyle:solid) when (@listItemDividerStyle = bevel) and (@listEndcaps = bottom), (@listEndcaps = top-bottom) {
+	border-bottom: none;
+}
+
+.list-dividers-ul(@listFormat, @width, @style, @color, @listEndcaps) {
+	.do-nothing();
+}
+.list-dividers-li(@listFormat, @width, @style, @color) {
+	.do-nothing();
+}
+
+// ROW:
+.list-dividers-ul(row, @width:1px, @style:solid, @color:#000, none) when not (@style = bevel) {
+	border-left: @width @style @color;
+	border-right: @width @style @color;
+}
+
+.list-dividers-ul(row, @width:1px, @style:solid, @color:#000, left) when not (@style = bevel) {
+	border-right: @width @style @color;
+}
+
+.list-dividers-ul(row, @width:1px, @style:solid, @color:#000, right) when not (@style = bevel) {
+	border-left: @width @style @color;
+}
+
+.list-dividers-ul(row, @width:1px, bevel, @color:#000, none) {
+	border-right: @width solid lighten(@color, 6%);
+	border-left: @width solid darken(@color, 14%);
+}
+
+.list-dividers-ul(row, @width:1px, bevel, @color:#000, left) {
+	border-right: @width solid lighten(@color, 6%);
+}
+
+.list-dividers-ul(row, @width:1px, bevel, @color:#000, right) {
+	border-left: @width solid darken(@color, 14%);
+}
+
+.list-dividers-li(row, @width:1px, @style:solid, @color:#000) when not (@style = bevel) {
+	border-right: @width @style @color;
+}
+
+.list-dividers-li(row, @width:1px, bevel, @color:#000) {
+	border-left: @width solid lighten(@color, 6%);
+	border-right: @width solid darken(@color, 14%);
+}
+
+// COLUMN:
+.list-dividers-ul(column, @width:1px, @style:solid, @color:#000, none) when not (@style = bevel) {
+	border-top: @width @style @color;
+	border-bottom: @width @style @color;
+}
+
+.list-dividers-ul(column, @width:1px, @style:solid, @color:#000, top) when not (@style = bevel) {
+	border-bottom: @width @style @color;
+}
+
+.list-dividers-ul(column, @width:1px, @style:solid, @color:#000, bottom) when not (@style = bevel) {
+	border-top: @width @style @color;
+}
+
+.list-dividers-ul(column, @width:1px, bevel, @color:#000, none) {
+	border-bottom: @width solid lighten(@color, 6%);
+	border-top: @width solid darken(@color, 14%);
+}
+
+.list-dividers-li(column, @width:1px, @style:solid, @color:#000) when not (@style = bevel) {
+	border-bottom: @width @style @color;
+}
+
+.list-dividers-li(column, @width:1px, bevel, @color:#000) {
+	border-top: @width solid lighten(@color, 6%);
+	border-bottom: @width solid darken(@color, 14%);
+}
+
+
+////////////////////////////////////////////////////////////
+//
+//  List Endcaps
+//
+////////////////////////////////////////////////////////////
+
+.list-endcaps(@listEndcaps, @listFormat, @listBorderRadius, @listItemDividerStyle) {
+	.do-nothing();
+}
+
+.list-endcaps(@listEndcaps, @listFormat, @listItemDividerStyle:solid, @listBorderRadius:0px) {
+	// Note that first- and last-child selectors must be in separate declarations from fallback to avoid choking IE8:
+	ul li:first-child, ul li:first-child a {
+		.list-endcap-first(@listEndcaps, @listFormat, @listBorderRadius);
+		.list-dividers-clear-first(@listFormat, @listEndcaps, @listItemDividerStyle);
+	}
+	ul li.first, ul li.first a {
+		.list-endcap-first(@listEndcaps, @listFormat, @listBorderRadius);
+		.list-dividers-clear-first(@listFormat, @listEndcaps, @listItemDividerStyle);
+	}
+	ul li:last-child, ul li:last-child a {
+		.list-endcap-last(@listEndcaps, @listFormat, @listBorderRadius);
+		.list-dividers-clear-last(@listFormat, @listEndcaps, @listItemDividerStyle);
+	}
+	ul li.last, ul li.last a {
+		.list-endcap-last(@listEndcaps, @listFormat, @listBorderRadius);
+		.list-dividers-clear-last(@listFormat, @listEndcaps, @listItemDividerStyle);
+	}
+}
+
+.list-endcap-first(@listEndcaps, @listFormat, @listBorderRadius) {
+	.do-nothing();
+}
+
+.list-endcap-last(@listEndcaps, @listFormat, @listBorderRadius) {
+	.do-nothing();
+}
+
+// ROW:
+.list-endcap-first(@listEndcaps:none, row, @listBorderRadius:5px) when (@listEndcaps = left), (@listEndcaps = left-right), (@listEndcaps = top), (@listEndcaps = top-bottom) {
+	-webkit-border-top-left-radius: @listBorderRadius;
+	-moz-border-radius-topleft: @listBorderRadius;
+	-o-border-radius-topleft: @listBorderRadius;
+	border-top-left-radius: @listBorderRadius;
+}
+
+.list-endcap-first(@listEndcaps:none, row, @listBorderRadius:5px) when (@listEndcaps = left), (@listEndcaps = left-right), (@listEndcaps = bottom), (@listEndcaps = top-bottom) {
+	-webkit-border-bottom-left-radius: @listBorderRadius;
+	-moz-border-radius-bottomleft: @listBorderRadius;
+	-o-border-radius-bottomleft: @listBorderRadius;
+	border-bottom-left-radius: @listBorderRadius;
+}
+
+.list-endcap-last(@listEndcaps:none, row, @listBorderRadius:5px) when (@listEndcaps = right), (@listEndcaps = left-right), (@listEndcaps = top), (@listEndcaps = top-bottom) {
+	-webkit-border-top-right-radius: @listBorderRadius;
+	-moz-border-radius-topright: @listBorderRadius;
+	-o-border-radius-topright: @listBorderRadius;
+	border-top-right-radius: @listBorderRadius;
+}
+
+.list-endcap-last(@listEndcaps:none, row, @listBorderRadius:5px) when (@listEndcaps = right), (@listEndcaps = left-right), (@listEndcaps = bottom), (@listEndcaps = top-bottom) {
+	-webkit-border-bottom-right-radius: @listBorderRadius;
+	-moz-border-radius-bottomright: @listBorderRadius;
+	-o-border-radius-bottomright: @listBorderRadius;
+	border-bottom-right-radius: @listBorderRadius;
+}
+
+// COLUMN:
+.list-endcap-first(@listEndcaps:none, column, @listBorderRadius:5px) when (@listEndcaps = left), (@listEndcaps = left-right), (@listEndcaps = top), (@listEndcaps = top-bottom) {
+	-webkit-border-top-left-radius: @listBorderRadius;
+	-moz-border-radius-topleft: @listBorderRadius;
+	-o-border-radius-topleft: @listBorderRadius;
+	border-top-left-radius: @listBorderRadius;
+}
+
+.list-endcap-first(@listEndcaps:none, column, @listBorderRadius:5px) when (@listEndcaps = right), (@listEndcaps = left-right), (@listEndcaps = top), (@listEndcaps = top-bottom) {
+	-webkit-border-top-right-radius: @listBorderRadius;
+	-moz-border-radius-topright: @listBorderRadius;
+	-o-border-radius-topright: @listBorderRadius;
+	border-top-right-radius: @listBorderRadius;
+}
+
+.list-endcap-last(@listEndcaps:none, column, @listBorderRadius:5px) when (@listEndcaps = left), (@listEndcaps = left-right), (@listEndcaps = bottom), (@listEndcaps = top-bottom) {
+	-webkit-border-bottom-left-radius: @listBorderRadius;
+	-moz-border-radius-bottomleft: @listBorderRadius;
+	-o-border-radius-bottomleft: @listBorderRadius;
+	border-bottom-left-radius: @listBorderRadius;
+}
+
+.list-endcap-last(@listEndcaps:none, column, @listBorderRadius:5px) when (@listEndcaps = right), (@listEndcaps = left-right), (@listEndcaps = bottom), (@listEndcaps = top-bottom) {
+	-webkit-border-bottom-right-radius: @listBorderRadius;
+	-moz-border-radius-bottomright: @listBorderRadius;
+	-o-border-radius-bottomright: @listBorderRadius;
+	border-bottom-right-radius: @listBorderRadius;
+}
+
+
+////////////////////////////////////////////////////////////
+//
+//  List Has Children
+//
+////////////////////////////////////////////////////////////
+
+.list-has-children(@listFormat, @listItemHasChildrenFlag, @listItemHasChildrenFlagColor, @listItemHasChildrenFlagPosition:right, @listItemHasChildrenFlagSize:10px, @listItemHasChildrenFlagHorizontalOffset:2px, @listItemHasChildrenFlagVerticalOffset:50%) {
+	.do-nothing();
+}
+
+.list-has-children(@listFormat, @listItemHasChildrenFlag, @listItemHasChildrenFlagColor, center, @listItemHasChildrenFlagSize:10px, @listItemHasChildrenFlagHorizontalOffset:0px, @listItemHasChildrenFlagVerticalOffset:100%) {
+	ul li.has-children:after {
+		display: block;
+		font-size: @listItemHasChildrenFlagSize;
+		line-height: @listItemHasChildrenFlagSize;
+		position: absolute;
+		top: @listItemHasChildrenFlagVerticalOffset;
+		bottom: auto;
+		left: 50%;
+		right: auto;
+		margin: 0;
+		margin-top: -@listItemHasChildrenFlagSize;
+		margin-left: -0.5*@listItemHasChildrenFlagSize+@listItemHasChildrenFlagHorizontalOffset;
+		color: @listItemHasChildrenFlagColor;
+		content: @listItemHasChildrenFlag;
+		cursor: pointer;
+	}
+}
+
+.list-has-children(@listFormat, @listItemHasChildrenFlag, @listItemHasChildrenFlagColor, right, @listItemHasChildrenFlagSize:10px, @listItemHasChildrenFlagHorizontalOffset:2px, @listItemHasChildrenFlagVerticalOffset:50%) {
+	ul li.has-children:after {
+		display: block;
+		font-size: @listItemHasChildrenFlagSize;
+		line-height: @listItemHasChildrenFlagSize;
+		position: absolute;
+		top: @listItemHasChildrenFlagVerticalOffset;
+		bottom: auto;
+		right: @listItemHasChildrenFlagHorizontalOffset;
+		left: auto;
+		margin: 0;
+		margin-top: -0.6*@listItemHasChildrenFlagSize;
+		color: @listItemHasChildrenFlagColor;
+		content: @listItemHasChildrenFlag;
+		cursor: pointer;
+	}
+}
+
+.list-has-children(none, @listItemHasChildrenFlag, @listItemHasChildrenFlagColor, @listItemHasChildrenFlagPosition, @listItemHasChildrenFlagSize:10px, @listItemHasChildrenFlagHorizontalOffset:2px, @listItemHasChildrenFlagVerticalOffset:50%) {
+	ul li.has-children:after {
+		font-size: @listItemHasChildrenFlagSize;
+		line-height: @listItemHasChildrenFlagSize;
+		left: @listItemHasChildrenFlagHorizontalOffset;
+		top: @listItemHasChildrenFlagVerticalOffset;
+		margin: 0;
+		color: @listItemHasChildrenFlagColor;
+		content: @listItemHasChildrenFlag;
+	}
+}
+
+
+////////////////////////////////////////////////////////////
+//
+//  Effects
+//
+////////////////////////////////////////////////////////////
+
+.box-shadow(@boxShadowXOffset:1px, @boxShadowYOffset:1px, @boxShadowBlur:2px, @boxShadowAlpha:0.33) {
+	-webkit-box-shadow: @boxShadowXOffset @boxShadowYOffset @boxShadowBlur rgba(0,0,0,@boxShadowAlpha);
+	-moz-box-shadow: @boxShadowXOffset @boxShadowYOffset @boxShadowBlur rgba(0,0,0,@boxShadowAlpha);
+	-o-box-shadow: @boxShadowXOffset @boxShadowYOffset @boxShadowBlur rgba(0,0,0,@boxShadowAlpha);
+	box-shadow: @boxShadowXOffset @boxShadowYOffset @boxShadowBlur rgba(0,0,0,@boxShadowAlpha);
+}
+
+.box-glow(@boxGlowXOffset:0, @boxGlowYOffset:0, @boxGlowBlur:4px, @boxGlowAlpha:0.33) {
+	-webkit-box-shadow: @boxGlowXOffset @boxGlowYOffset @boxGlowBlur rgba(255,255,255,@boxGlowAlpha);
+	-moz-box-shadow: @boxGlowXOffset @boxGlowYOffset @boxGlowBlur rgba(255,255,255,@boxGlowAlpha);
+	-o-box-shadow: @boxGlowXOffset @boxGlowYOffset @boxGlowBlur rgba(255,255,255,@boxGlowAlpha);
+	box-shadow: @boxGlowXOffset @boxGlowYOffset @boxGlowBlur rgba(255,255,255,@boxGlowAlpha);
+}
+
+.box-shadow-none() {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	-o-box-shadow: none;
+	box-shadow: none;
+}
+
+.box-glow-none() {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	-o-box-shadow: none;
+	box-shadow: none;
+}
+
+.text-shadow(@textShadowXOffset:1px, @textShadowYOffset:1px, @textShadowBlur:1px, @textShadowAlpha:0.33) {
+	-webkit-text-shadow: @textShadowXOffset @textShadowYOffset @textShadowBlur rgba(0,0,0,@textShadowAlpha);
+	-moz-text-shadow: @textShadowXOffset @textShadowYOffset @textShadowBlur rgba(0,0,0,@textShadowAlpha);
+	-o-text-shadow: @textShadowXOffset @textShadowYOffset @textShadowBlur rgba(0,0,0,@textShadowAlpha);
+	text-shadow: @textShadowXOffset @textShadowYOffset @textShadowBlur rgba(0,0,0,@textShadowAlpha);
+}
+
+.text-glow(@textShadowXOffset:0, @textShadowYOffset:0, @textShadowBlur:3px, @textShadowAlpha:0.33) {
+	-webkit-text-shadow: @textShadowXOffset @textShadowYOffset @textShadowBlur rgba(255,255,255,@textShadowAlpha);
+	-moz-text-shadow: @textShadowXOffset @textShadowYOffset @textShadowBlur rgba(255,255,255,@textShadowAlpha);
+	-o-text-shadow: @textShadowXOffset @textShadowYOffset @textShadowBlur rgba(255,255,255,@textShadowAlpha);
+	text-shadow: @textShadowXOffset @textShadowYOffset @textShadowBlur rgba(255,255,255,@textShadowAlpha);
+}
+
+.text-shadow-none() {
+	-webkit-text-shadow: none;
+	-moz-text-shadow: none;
+	-o-text-shadow: none;
+	text-shadow: none;
+}
+
+.text-glow-none() {
+	-webkit-text-shadow: none;
+	-moz-text-shadow: none;
+	-o-text-shadow: none;
+	text-shadow: none;
+}
+
+.opacity(@opacity:1.0) {
+	opacity: @opacity;
+	@opacityPercent: @opacity*100;
+	filter: alpha(opacity=@opacityPercent);
+}
+
+
+////////////////////////////////////////////////////////////
+//
+//  Dropdowns
+//
+////////////////////////////////////////////////////////////
+
+.dropdown-flyout(@format:column, @direction:down, @align:left, @parentHeight:0px, @parentWidth:0px) {
+	display: none;
+}
+
+.dropdown-flyout(column, down, left, @parentHeight:0px, @parentWidth:0px) {
+	position: absolute;
+	top: @parentHeight;
+	left: 0;
+}
+
+.dropdown-flyout(column, right, left, @parentHeight:0px, @parentWidth:0px) {
+	position: absolute;
+	top: 0;
+	left: @parentWidth !important;
+}
+
+.dropdown-flyout(row, down, @align, @parentHeight:0px, @parentWidth:0px) {
+	position: absolute;
+	top: @parentHeight;
+	left: 0;
+	width: 100%;
+}
+
+
+////////////////////////////////////////////////////////////
+//
+//  Utilities
+//
+////////////////////////////////////////////////////////////
+
+// Use instead of empty brackets or else LESS may choke:
+.do-nothing() {
+	@phonyVariable: 0;
+}
+
+.disinherit() {
+	height: auto;
+    border: none;
+    .border-radius(0px 0px 0px 0px);
+	ul, ul li, ul li a {
+		height: auto;
+		// Zero all borders and border-radii for nested lists:
+    	border: none;
+    	.border-radius(0px 0px 0px 0px);
+	}
+}
+
+.add-alpha-to-background(@color, @alpha) {
+  background: hsla(hue(@color), saturation(@color), lightness(@color), @alpha);
+}
+
+.add-alpha-to-background-important(@color, @alpha) {
+  background: hsla(hue(@color), saturation(@color), lightness(@color), @alpha) !important;
+}

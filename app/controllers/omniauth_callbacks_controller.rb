@@ -7,7 +7,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         user = User.where(auth.slice(:provider, :uid)).first_or_create
         user.provider = auth.provider
         user.uid = auth.uid
-        # user.login_params = auth.to_yaml
+        user.login_params = ""#auth.to_yaml
         user.image_url = auth.info.image
         user.name = auth.info.name
 

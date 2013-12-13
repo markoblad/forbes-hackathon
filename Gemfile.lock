@@ -37,6 +37,7 @@ GEM
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
     bcrypt-ruby (3.1.2)
+    blankslate (3.1.2)
     bootstrap-sass (3.0.3.0)
       sass (~> 3.2)
     bson (1.9.2)
@@ -50,6 +51,13 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    columnize (0.3.6)
+    debugger (1.6.3)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.4)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.4)
     devise (3.2.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -59,6 +67,7 @@ GEM
     erubis (2.7.0)
     excon (0.25.3)
     execjs (2.0.2)
+    ffi (1.9.3)
     heroku (3.1.0)
       heroku-api (~> 0.3.7)
       launchy (>= 0.3.2)
@@ -94,11 +103,18 @@ GEM
       activemodel (~> 3.0)
       activesupport (~> 3.0)
       plucky (~> 0.5.2)
+    mongoid (3.1.6)
+      activemodel (~> 3.2)
+      moped (~> 1.4)
+      origin (~> 1.0)
+      tzinfo (~> 0.3.29)
+    moped (1.5.1)
     multi_json (1.8.2)
     multi_xml (0.5.5)
     netrc (0.7.7)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
+    origin (1.1.0)
     orm_adapter (0.5.0)
     plucky (0.5.2)
       mongo (~> 1.5)
@@ -131,6 +147,9 @@ GEM
       json (~> 1.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rubypython (0.6.3)
+      blankslate (>= 2.1.2.3)
+      ffi (>= 1.0.7)
     rubyzip (1.1.0)
     sass (3.2.12)
     sass-rails (3.2.6)
@@ -170,6 +189,7 @@ DEPENDENCIES
   bootstrap-sass
   bson_ext
   coffee-rails (~> 3.2.1)
+  debugger
   devise
   heroku
   jquery-rails
@@ -177,7 +197,10 @@ DEPENDENCIES
   json
   mongo
   mongo_mapper
+  mongoid
   rails (= 3.2.11)
+  rest-client
+  rubypython
   sass-rails (~> 3.2.3)
   settingslogic
   uglifier (>= 1.0.3)

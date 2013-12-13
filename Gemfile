@@ -9,14 +9,17 @@ gem 'rails', '3.2.11'
 
 gem 'mongo'
 gem 'mongo_mapper'
+gem 'mongoid'
 gem 'bson_ext'
 
 gem 'json'
+gem 'rest-client'
 gem 'devise' #user management
 gem 'settingslogic' #config settings in yaml
 gem 'uuidtools'
 gem 'aws-sdk', '~> 1.3.4'
 gem 'heroku'
+gem 'rubypython'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -47,4 +50,4 @@ gem 'unicorn'
 # gem 'capistrano'
 
 # To use debugger
-# gem 'debugger'
+gem 'debugger'

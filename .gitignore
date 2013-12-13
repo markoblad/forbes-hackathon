@@ -13,3 +13,15 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore gemfiles
+/vendor/bundle
+
+# Ignore Mac .DS_Store
+/.DS_Store
+/app/.DS_Store
+/app/assets/.DS_Store
+/app/assets/images/.DS_Store
+*.DS_Store
+.DS_Store
+

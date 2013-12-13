@@ -59,6 +59,9 @@ module ForbesHackathon
     # parameters by using an attr_accessible or attr_protected declaration.
     #config.active_record.whitelist_attributes = true
 
+    # Don't fallback to assets pipeline if a precompiled asset is missed
+    config.assets.compile = true
+
     # Enable the asset pipeline
     config.assets.enabled = true
 

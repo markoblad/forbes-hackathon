@@ -10,6 +10,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         user.login_params = ""#auth.to_yaml
         user.image_url = auth.info.image
         user.name = auth.info.name
+        user.save
 
         # user.update({provider: auth.provider, uid: auth.uid, login_params: auth.to_yaml, image_url: auth.info.image, name: auth.info.name })
 

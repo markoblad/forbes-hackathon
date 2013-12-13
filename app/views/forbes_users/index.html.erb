@@ -5,18 +5,18 @@
   <div class="row">
      <div class="span3 offset 1">
        <div>
-         <div class="contacts-header">You have <% article.company.contacts.length %> contacts at <% article.company.name %> </div>
+         <div class="contacts-header">You have <% article["company"]["contacts"].length %> contacts at <% article["company"]["name"] %> </div>
        </div>
-       <% article.company.contacts.each do |contact| %>
-	  <a href="<% contact.url %>"><img src="<% contact.image_url %>" hspace="10" vspace="10"></a>
+       <% article["company"]["contacts"].each do |contact| %>
+	  <a href="<% contact["linkedin_url"] %>"><img src="<% contact["image_url"] %>" hspace="10" vspace="10"></a>
        <% end %>
      </div>
      <div class="span 7">
        <div class="date-header">
-         <a href="<% article.forbes_url %>"> <% article.published_date %> | <% article.published_time %> | <% published_city %> </a>
+         <a href="<% article["forbes_url"] %>"> <% article["published_date"] %> | <% article["published_time"] %> | <% article["published_city"] %> </a>
        </div>
        <div class="article-stub">
-         <a href="<% article.forbes_url %>"> <% article.stub %> </a>
+         <a href="<% article["forbes_url"] %>"> <% article["stub"] %> </a>
        </div>
      </div>
   </div>

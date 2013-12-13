@@ -22,6 +22,10 @@ gem 'aws-sdk', '~> 1.3.4'
 gem 'heroku'
 gem 'rubypython'
 gem 'text'
+gem 'sanitize'
+
+# sentimental for tokenized sentiment analyiss
+gem 'sentimental'
 
 # Gems used only for assets and not required
 # in production environments by default.

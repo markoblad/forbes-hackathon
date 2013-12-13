@@ -182,6 +182,9 @@ GEM
       blankslate (>= 2.1.2.3)
       ffi (>= 1.0.7)
     rubyzip (1.1.0)
+    sanitize (2.0.6)
+      nokogiri (>= 1.4.4)
+    sentimental (1.0.3)
     settingslogic (2.0.9)
     sprockets (2.2.2)
       hike (~> 1.2)
@@ -232,6 +235,8 @@ DEPENDENCIES
   rails (= 3.2.11)
   rest-client
   rubypython
+  sanitize
+  sentimental
   settingslogic
   text
   therubyracer

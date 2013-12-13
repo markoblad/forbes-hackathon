@@ -58,4 +58,4 @@ layout:
         cols:
         - class: span12
           nested: [{class: block}]
-          html: '<img src="/assets/logo.png" alt="LinkedIn2Forbes" />'
+          html: 'Forbes Hackathon | December 13, 2013'

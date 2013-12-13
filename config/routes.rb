@@ -12,7 +12,7 @@ ForbesHackathon::Application.routes.draw do
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
-  match '/feed' => 'forbes_user#index', :as => :feed
+  match '/feed' => 'forbes_users#index', :as => :feed
   match '(*path)' => 'home#page', :defaults => {:path => 'index'}
   root :to => 'home#page'
 

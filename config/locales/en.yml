@@ -2,9 +2,8 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
   application:
-    title: Forbes Hackathon App
+    title: YourForbes
   home:
     page:
       forbes-hackathon:
@@ -12,9 +11,5 @@ en:
           title: App Requires Domain/DNS to Work
       index:
         label: Home
-        title: This is Home
-        description: ''
-      how-it-works:
-        label: How It Works
-        title: How It Works
+        title: See what's news in your network.
         description: ''

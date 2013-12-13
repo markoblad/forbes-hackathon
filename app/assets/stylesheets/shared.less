@@ -1,0 +1,273 @@
+@baseImagePath: '/assets'; // for rails
+@spriteMapNoRepeat: "@{baseImagePath}/stylesheet-no-repeat.png";
+@spriteMapRepeatX: "@{baseImagePath}/stylesheet-repeat-x.png";
+@spriteMapRepeatY: "@{baseImagePath}/stylesheet-repeat-y.png";
+
+
+////////////////////////////////////////////////////////////
+//
+//  Bootstrap
+//
+////////////////////////////////////////////////////////////
+
+@import "twitter/bootstrap/reset.less";
+@import "twitter/bootstrap/variables.less";
+
+@placeholderText: #aaaaaa;
+@warningText: #c09853;
+@warningBackground: #fcf8e3;
+@warningBorder: darken(spin(@errorBackground, -10), 3%);
+@errorText:               #dd6644;
+@errorBackground:         #f2dede;
+@errorBorder:             #b94a48;
+@successText:             #44aa66;
+@successBackground:       #dff0d8;
+@successBorder:           #468847;
+
+
+@gridColumns: 12;
+@gridColumnWidth: 80px;
+@gridGutterWidth: 0;
+@gridColumnWidth1200: 80px;
+@gridGutterWidth1200: 20px;
+@gridColumnWidth768: 64px;
+@gridGutterWidth768: 0;
+
+@import "twitter/bootstrap/mixins.less";
+@import "twitter/bootstrap/scaffolding.less";
+@import "twitter/bootstrap/grid.less";
+@import "twitter/bootstrap/layouts.less";
+@import "twitter/bootstrap/type.less";
+@import "twitter/bootstrap/code.less";
+@import "twitter/bootstrap/forms.less";
+@import "twitter/bootstrap/tables.less";
+@import "twitter/bootstrap/navs.less";
+@import "twitter/bootstrap/pagination.less";
+@import "twitter/bootstrap/component-animations.less";
+@import "twitter/bootstrap/buttons.less";
+@import "twitter/bootstrap/alerts.less"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
+@import "twitter/bootstrap/navs.less";
+@import "twitter/bootstrap/modals.less";
+// Responsive could be handled semantically in custom grid or...
+@import "twitter/bootstrap/responsive-767px-max.less";
+@import "twitter/bootstrap/responsive-768px-979px.less";
+@import "twitter/bootstrap/responsive-1200px-min.less";
+
+@import "twitter/bootstrap/labels-badges.less";
+@import "twitter/bootstrap/utilities.less";
+
+.modal-backdrop, .modal-backdrop.fade.in {
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+
+.modal {
+  display: none; // opacity is not sufficient
+  &.fade {
+    .transition(e('opacity .3s linear'));
+    top: 10%;
+  }
+  &.fade.in { top: 10%; }
+}
+
+a:focus {
+  // Override Bootstrap shadow on focus
+  outline: none;
+  box-shadow: none !important;
+}
+
+input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input, textarea, select {
+  line-height: 1; // Safari placeholder vertical alignment fix
+  margin-bottom: 0; // Thanks, Bootstrap, but we style divs
+}
+
+.alert {
+  margin: 10px;
+}
+
+////////////////////////////////////////////////////////////
+//
+//  LOCAL MIXINS
+//
+////////////////////////////////////////////////////////////
+
+@import "starter/mixins.less";
+
+.emboss() {
+	.clearfix();
+	position: relative;
+	* {
+		position: relative;
+	}
+	.nine-slice(10px, 10px);
+	.top-left {
+		background-image: url(@spriteMapNoRepeat);
+		background-position: 0px 0px;
+	}
+	.top {
+		background-image: url(@spriteMapRepeatX);
+		background-position: 0px 0px;
+	}
+	.top-right {
+		background-image: url(@spriteMapNoRepeat);
+		background-position: -20px 0px;
+	}
+	.left {
+		background-image: url(@spriteMapRepeatY);
+		background-position: 0px 0px;
+	}
+	.middle {
+		background-image: url("@{baseImagePath}/pixel-10p000000.png");
+		background-position: 0px 0px;
+	}
+	.right {
+		background-image: url(@spriteMapRepeatY);
+		background-position: -10px 0px;
+	}
+	.bottom-left {
+		background-image: url(@spriteMapNoRepeat);
+		background-position: -10px 0px;
+	}
+	.bottom {
+		background-image: url(@spriteMapRepeatX);
+		background-position: 0px -10px;
+	}
+	.bottom-right {
+		background-image: url(@spriteMapNoRepeat);
+		background-position: -30px 0px;
+	}
+}
+
+.glass-block() {
+	.clearfix();
+	position: relative;
+	* {
+		position: relative;
+	}
+	.nine-slice(10px, 10px);
+	.top-left {
+		background-image: url(@spriteMapNoRepeat);
+		background-position: -40px 0px;
+	}
+	.top {
+		background-image: url(@spriteMapRepeatX);
+		background-position: 0px -20px;
+	}
+	.top-right {
+		background-image: url(@spriteMapNoRepeat);
+		background-position: -60px 0px;
+	}
+	.left {
+		background-image: url(@spriteMapRepeatY);
+		background-position: -20px 0px;
+	}
+	.middle {
+		background-image: url("@{baseImagePath}/pixel-10p000000.png");
+		background-position: 0px 0px;
+	}
+	.right {
+		background-image: url(@spriteMapRepeatY);
+		background-position: -30px 0px;
+	}
+	.bottom-left {
+		background-image: url(@spriteMapNoRepeat);
+		background-position: -50px 0px;
+	}
+	.bottom {
+		background-image: url(@spriteMapRepeatX);
+		background-position: 0px -30px;
+	}
+	.bottom-right {
+		background-image: url(@spriteMapNoRepeat);
+		background-position: -70px 0px;
+	}
+}
+
+.drop-shadow() {
+	.clearfix();
+	position: relative;
+	* {
+		position: relative;
+	}
+	.nine-slice(10px, 15px);
+	.top-left {
+		background-image: url(@spriteMapNoRepeat);
+		background-position: -80px 0px;
+	}
+	.top {
+		background-image: url(@spriteMapRepeatX);
+		background-position: 0px -40px;
+	}
+	.top-right {
+		background-image: url(@spriteMapNoRepeat);
+		background-position: -110px 0px;
+	}
+	.left {
+		background-image: url(@spriteMapRepeatY);
+		background-position: -40px 0px;
+	}
+	.middle {}
+	.right {
+		background-image: url(@spriteMapRepeatY);
+		background-position: -50px 0px;
+	}
+	.bottom-left {
+		background-image: url(@spriteMapNoRepeat);
+		background-position: -95px 0px;
+	}
+	.bottom {
+		background-image: url(@spriteMapRepeatX);
+		background-position: 0px -50px;
+	}
+	.bottom-right {
+		background-image: url(@spriteMapNoRepeat);
+		background-position: -125px 0px;
+	}
+}
+
+button, input[type="submit"], .button {
+  display: inline-block;
+  padding: 15px 30px;
+  margin: 0 2px;
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: none;
+  .border-radius(9px);
+  .style-text-emboss(#FFFFFF, 0.8, .15, .2);
+  .background-gradient(vertical, #4D4D4D, #3C3C3C);
+  .style-button-borders(#3C3C3C);
+  border-width: 1px 1px 3px 1px;
+  &:hover, &.hover {
+    color: #FFFFFF;
+    .background-gradient(vertical, #0F2D5F, darken(#0F2D5F, 10%));
+    .style-button-borders(darken(#0F2D5F, 10%));
+    border-width: 1px 1px 3px 1px;
+    text-decoration: none;
+  }
+}
+
+
+html, body, #super-container {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+// Sticky footer:
+#content {
+	min-height: 100%;
+ 	height: 100%;
+	height: auto;
+	margin: 0 auto -60px;
+}
+
+#footer, #push-footer {
+	height: 60px;
+	clear: both;
+}
+
+#footer {
+  color: #888888;
+  text-align: center;
+}
+

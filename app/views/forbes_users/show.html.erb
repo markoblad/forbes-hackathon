@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Username:</b>
+  <%= @forbes_user.username %>
+</p>
+
+<p>
+  <b>Linkedin:</b>
+  <%= @forbes_user.linkedin %>
+</p>
+
+
+<%= link_to 'Edit', edit_forbes_user_path(@forbes_user) %> |
+<%= link_to 'Back', forbes_users_path %>

@@ -44,15 +44,15 @@ class User
   # field :unlock_token,    :type => String # Only if unlock strategy is :email or :both
   # field :locked_at,       :type => Time
 
-  def self.from_omniauth(auth)
-    where(auth.slice(:provider, :uid)).first_or_create do |user|
-      user.provider = ""#auth.provider
-      user.uid = ""#auth.uid
-      user.login_params = ""#auth.to_yaml
-      user.image_url = ""#auth.info.image_url
-      user.name = ""#auth.info.name
-    end
-  end
+  # def self.from_omniauth(auth)
+  #   where(auth.slice(:provider, :uid)).first_or_create do |user|
+  #     user.provider = ""#auth.provider
+  #     user.uid = ""#auth.uid
+  #     user.login_params = ""#auth.to_yaml
+  #     user.image_url = ""#auth.info.image_url
+  #     user.name = ""#auth.info.name
+  #   end
+  # end
 
   def self.new_with_session(params, session)
     if session["devise.user_attributes"]

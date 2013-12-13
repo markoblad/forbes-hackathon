@@ -19,6 +19,19 @@
   <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
   <%= f.password_field :current_password %></div>
 
+<div><%= f.label :provider %><br />
+  <%= f.password_field :provider %></div>
+
+<div><%= f.label :uid %><br />
+  <%= f.password_field :uid %></div>
+
+<div><%= f.label :login_params %><br />
+  <%= f.password_field :login_params %></div>
+
+<div><%= f.label :image_url %><br />
+  <%= f.password_field :image_url %></div>
+
+
   <div><%= f.submit "Update" %></div>
 <% end %>
 

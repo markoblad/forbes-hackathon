@@ -1,4 +1,21 @@
 <%= render "../../public/#{I18n.locale}/www/#{params[:path]}" %>
+
+<% if user_signed_in? %>
+    <%= current_user.image_url %>
+    <hr />
+    <%= current_user.provider %>
+    <hr />
+    <%= current_user.uid %>
+    <hr />
+    <%= current_user.login_params %>
+  Logged in as <strong><%= current_user.name %></strong>.
+  <%= link_to 'Edit profile', edit_user_registration_path %> |
+  <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= link_to "Sign up", new_user_registration_path %> |
+  <%= link_to "Login", new_user_session_path %>
+<% end %>
+
 <%
 rescue
   raise ActionController::RoutingError.new('Not Found')

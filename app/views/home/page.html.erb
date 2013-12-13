@@ -1,7 +1,10 @@
 <%= render "../../public/#{I18n.locale}/www/#{params[:path]}" %>
-
 <% if user_signed_in? %>
-    <%= image_tag current_user.image_url %>
+    
+    <%= current_user.connections %>
+    <%= link_to(image_tag(current_user.image_url), current_user.profile_url) %>
+    http%3A%2F%2Fwww.linkedin.com%2Fpub%2Fjoshua-martin%2F86%2F918%2F863
+    <%=   %>
     <hr />
     <%= current_user.provider %>
     <hr />

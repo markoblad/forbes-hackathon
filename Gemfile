@@ -14,6 +14,7 @@ gem 'bson_ext'
 
 gem 'json'
 gem 'rest-client'
+# gem 'linkedin'
 gem 'devise' #user management
 gem 'omniauth-linkedin'
 gem 'settingslogic' #config settings in yaml

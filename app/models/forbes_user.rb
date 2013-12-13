@@ -5,6 +5,7 @@ class ForbesUser
 	require 'uri'
 	require 'open-uri'
 	require 'rest-client'
+	require 'text'
 
   include Mongoid::Document
   field :username, type: String
@@ -29,6 +30,7 @@ class ForbesUser
 # http://apis.forbes.com/hackathon/org/oracle.json?api_key=gxgpvwxya25quemzxh9r5593
 
 
+	# h["organizationList"]["organizationsLists"][0]
 	# reload!; h = ForbesUser::get_company_list(2013)
 	def self.get_company_list(year, opts={})
 		options = {
@@ -56,6 +58,63 @@ class ForbesUser
 			hash = JSON.parse(json)
 		end
 		return hash
+	end
+
+	# reload!; a = ForbesUser::get_articles
+	def self.get_articles(opts={})
+		options = {
+			limit: 50
+		}.merge(opts)
+		hash = {}
+		url = "http://apis.forbes.com/hackathon/contents/stream/all/all.json?limit=#{options[:limit]}&api_key=gxgpvwxya25quemzxh9r5593"
+		json = RestClient.get url
+		hash = JSON.parse(json)
+		return hash
+	end
+
+	def self.return_closest_levenshtein_names(name, names)
+		levenshtein_names = []
+		unless names.blank?
+			if names.size == 1
+				levenshtein_names = names
+			else
+				distances = []
+				names.each do |name|
+					cleaned_name = name.upcase.gsub(/[^[[:word:]]\s]/, ' ').strip
+					distances << Text::Levenshtein.distance(cleaned_name, name)
+				end
+				distance_min = distances.min
+				levenshtein_min_indexes = distances.each_with_index.select {|distance, index| distance == distance_min}
+				levenshtein_min_indexes.compact! unless levenshtein_min_indexes.blank?
+				unless levenshtein_min_indexes.blank?
+					levenshtein_names = levenshtein_min_indexes.collect {|i| names[i]}
+				end
+			end
+		end
+		return levenshtein_names
+	end
+
+	def self.return_closest_white_names(name, names)
+		white_names = []
+		unless names.blank?
+			if names.size == 1
+				white_names = names
+			else
+				similitudes = []
+				names.each do |name|
+					cleaned_name = name.name.upcase.gsub(/[^[[:word:]]\s]/, ' ').strip
+					white = Text::WhiteSimilarity.new
+					similitudes << white.similarity(cleaned_name, name)
+				end
+				similitude_max = similitudes.max
+				white_max_indexes = similitudes.each_with_index.select {|similitude, index| similitude == similitude_max}
+				white_max_indexes.compact! unless white_max_indexes.blank?
+				unless white_max_indexes.blank?
+					white_names = white_max_indexes.collect {|i| names[i]}
+				end
+			end
+		end
+		return white_names
 	end
 
 end

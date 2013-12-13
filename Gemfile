@@ -15,6 +15,7 @@ gem 'bson_ext'
 gem 'json'
 gem 'rest-client'
 gem 'devise' #user management
+gem 'omniauth-linkedin'
 gem 'settingslogic' #config settings in yaml
 gem 'uuidtools'
 gem 'aws-sdk', '~> 1.3.4'

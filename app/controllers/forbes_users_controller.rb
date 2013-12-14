@@ -15,7 +15,9 @@ class ForbesUsersController < ApplicationController
           matching_contacts = contacts.select{|c| c["company"] == company_name }
           if matching_contacts.blank?
             company_names = contacts.collect{|c| c["company"]}.compact
+            closest_matches = []
             closest_matches = ForbesUser.return_closest_levenshtein_names(company_name, company_names)
+            # closest_matches = ForbesUser.return_closest_white_names(company_name, company_names)
             matching_contacts = contacts.select{|c| closest_matches.include?(c["company"])}
           end
           
@@ -33,6 +35,7 @@ class ForbesUsersController < ApplicationController
 
           company_identifier = /key\=\".+?\"/.match(article_hash["body"]).to_s[5..-2]
           forbes_url = "http://www.forbes.com/companies/#{company_identifier}/"
+          company_hash = {}
           company_hash = {
             "name" => company_name,
             "forbes_url" => forbes_url,

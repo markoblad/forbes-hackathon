@@ -47,7 +47,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
 
         user.connections = parsed_connections
-debugger
 
         #     url = "http://api.linkedin.com/v1/people/url=http%3A%2F%2Fwww.linkedin.com%2Fpub%2Fjoshua-martin%2F86%2F918%2F863/connections?oauth_token=75--fbafc2b6-26bc-448e-85d2-f8e04b6c2ea6&oauth_verifier=718798"
         #     xml = RestClient.get url
@@ -60,7 +59,7 @@ debugger
 
         # raise client.profile.to_yaml
 
-        user.save
+        # user.save
 
 
         # user.update({provider: auth.provider, uid: auth.uid, login_params: auth.to_yaml, image_url: auth.info.image, name: auth.info.name })

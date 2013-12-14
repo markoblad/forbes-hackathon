@@ -18,7 +18,7 @@ class ForbesUsersController < ApplicationController
             closest_match = ForbesUser.return_closest_levenshtein_names(company_name, company_names)
             matching_contacts = [contacts.detect{|c| c["company"] == closest_match}]
           end
-
+          
           reconstructed_article_hash = {}
           reconstructed_article_hash.merge!({"stub" => article_hash["description"]})
           reconstructed_article_hash.merge!({"title" => article_hash["title"]})

@@ -7,7 +7,7 @@
 }
 
 h1 {
-  margin: 30px 0;
+  margin: 30px 10px;
 }
 
 .article {
@@ -16,18 +16,55 @@ h1 {
   border-bottom: 1px solid #EEEEEE;
 }
 
-.contacts-header {
+.contacts {
+  background-color: #f5f5f5;
+  min-height: 150px;
+  .border-radius(9px);
+  margin: 10px;
+}
 
+.contacts-header {
+  font-size: 12px;
+  padding: 10px;
+  a {
+    color: #333;
+    text-decoration: underline;
+    &:hover {
+      color: #0F2D5F;
+    }
+  }
 }
 
 .date-header {
+  padding: 10px;
   text-align: right;
+  a:hover .label {
+    background-color: #0F2D5F;
+  }
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 18px;
+  a {
+    color: #000;
+    display: block;
+    padding: 10px;
+    a:hover {
+      color: #0F2D5F;
+    }
+  }
 }
 
 .article-stub {
   margin: 10px;
-  a, a:hover {
+  a {
+    display: block;
     text-decoration: none;
     color: #333;
+    &:hover {
+      text-decoration: underline;
+      color: #0F2D5F;
+    }
   }
 }

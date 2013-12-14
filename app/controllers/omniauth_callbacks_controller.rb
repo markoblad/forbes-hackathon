@@ -14,10 +14,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         user.name = auth.info.name
         user.profile_url = auth.info.urls.public_profile
 
+
         api_key = '75s8wwd8qcu4l0'
         api_secret = 'BvMmXQBAoBfy3xYz'
-        user_token = '8a737d18-a614-40c2-a8ee-8ceafaee7202'
-        user_secret = 'b0679e09-0023-4c7a-aee2-3c0c7872400e'
+        user_token = auth.credentials.token
+        user_secret = auth.credentials.secret
          
         # Specify LinkedIn API endpoint
         configuration = { :site => 'https://api.linkedin.com' }

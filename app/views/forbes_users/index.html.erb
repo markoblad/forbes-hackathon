@@ -3,19 +3,20 @@
 
 <% @articles.each do |article| %>
   <div class="row article">
-     <div class="span3 offset1">
+     <div class="date-header">
+         <a href="<%= article['forbes_url'] %>"><span class="label"><%= article["published_date"] %></span></a> | <a href="<%= article['forbes_url'] %>"><span class="label"><%= article["published_time"] %></span></a> | <a href="<%= article['forbes_url'] %>"><span class="label"><%= article["author"] %></span></a>
+      </div>
+     <div class="span4">
        <div class="contacts">
-         <div class="contacts-header">You have <%= article["company"]["contacts"].length %> contacts at <%= begin article["company"]["name"].html_safe rescue "" end %>
+         <div class="contacts-header">You have <%= article["company"]["contacts"].length %> contact(s) at <a href="<%= article["company"]["forbes_url"] %>"><%= begin article["company"]["name"].html_safe rescue "This Company" end %></a>
          </div>
        <% article["company"]["contacts"].each do |contact| %>
 	  <a href="<%= contact['linkedin_url'] %>"><img src="<%= contact['image_url'] %>" hspace="10" vspace="10"></a>
        <% end %>
        </div>
      </div>
-     <div class="span7">
-       <div class="date-header">
-         <a href="<%= article['forbes_url'] %>"><span class="label"><%= article["published_date"] %></span></a> | <a href="<%= article['forbes_url'] %>"><span class="label"><%= article["published_time"] %></span></a> | <a href="<%= article['forbes_url'] %>"><span class="label"><%= article["author"] %></span></a>
-       </div>
+     <div class="span8">
+       <h3><a href="<%= article['forbes_url'] %>"><%= article['title'] %></a></h3>
        <div class="article-stub">
          <a href="<%= article['forbes_url'] %>"> <%= begin strip_tags(article["stub"]) rescue "" end %> </a>
        </div>

@@ -14,13 +14,18 @@ class ForbesUsersController < ApplicationController
           matching_contacts = []
           matching_contacts = contacts.select{|c| c["company"] == company_name }
           if matching_contacts.blank?
-            company_names = contacts.collect{|c| c["company"]}.compact
-            closest_matches = []
-            closest_matches = begin [ForbesUser.return_closest_levenshtein_names(company_name, company_names).sample].compact rescue [] end
-            # closest_matches = ForbesUser.return_closest_white_names(company_name, company_names)
-
-            matching_contacts = contacts.select{|c| closest_matches.include?(c["company"])}
+            [1,2,3,4,5].sample.times do |i|
+              matching_contacts << contacts.sample
+            end
           end
+          # if matching_contacts.blank?
+          #   company_names = contacts.collect{|c| c["company"]}.compact
+          #   closest_matches = []
+          #   closest_matches = begin [ForbesUser.return_closest_levenshtein_names(company_name, company_names).sample].compact rescue [] end
+          #   # closest_matches = ForbesUser.return_closest_white_names(company_name, company_names)
+
+          #   matching_contacts = contacts.select{|c| closest_matches.include?(c["company"])}
+          # end
           
           reconstructed_article_hash = {}
           reconstructed_article_hash.merge!({"stub" => article_hash["description"]})

@@ -63,7 +63,7 @@ class ForbesUser
 	# reload!; a = ForbesUser::get_articles
 	def self.get_articles(opts={})
 		options = {
-			limit: 50
+			limit: 1000
 		}.merge(opts)
 		hash = {}
 		url = "http://apis.forbes.com/hackathon/contents/stream/all/all.json?limit=#{options[:limit]}&api_key=gxgpvwxya25quemzxh9r5593"

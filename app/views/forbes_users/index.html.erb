@@ -16,9 +16,9 @@
        </div>
      </div>
      <div class="span8">
-       <h3><a href="<%= article['forbes_url'] %>"><%= article['title'] %></a></h3>
+       <h3><a href="<%= article['forbes_url'] %>"><%= article['title'].html_safe %></a></h3>
        <div class="article-stub">
-         <a href="<%= article['forbes_url'] %>"> <%= begin strip_tags(article["stub"]) rescue "" end %> </a>
+         <a href="<%= article['forbes_url'] %>"> <%= begin strip_tags(article["stub"]).html_safe rescue "" end %> </a>
        </div>
      </div>
   </div>

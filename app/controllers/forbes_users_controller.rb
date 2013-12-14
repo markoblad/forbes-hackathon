@@ -8,28 +8,30 @@ class ForbesUsersController < ApplicationController
     articles_hash = ForbesUser::ForbesUser::get_articles({})
     articles_hash["contentList"].each do |article_hash|
       unless article_hash["body"].blank?
-        reconstructed_article_hash = {}
-        reconstructed_article_hash.merge!({"stub" => article_hash["description"]})
-        reconstructed_article_hash.merge!({"title" => article_hash["title"]})
-        reconstructed_article_hash.merge!({"body" => begin article_hash["body"].gsub(/\[.*?\]/, '') rescue nil end })
-        reconstructed_article_hash.merge!({"published_date" => begin Time.at(article_hash["timestamp"].to_f / 1000).strftime("%b %e, %Y") rescue "Dec 13, 2013" end })
-        reconstructed_article_hash.merge!({"published_time" => begin Time.at(article_hash["timestamp"].to_f / 1000).strftime("%l:%M %P") rescue "20:13:28 -0500" end })
-        reconstructed_article_hash.merge!({"forbes_url" => article_hash["uri"]})
-        reconstructed_article_hash.merge!({"author" => begin article_hash["authors"][0]["name"] rescue "RJ Lehman" end })
-        article_body = Sanitize.clean(begin article_hash["body"].gsub(/\[.*?\]/, '') rescue nil end)
-        sentiment_score = begin SentimentAnalysis::sentiment_calculator(article_body, options) rescue 0.0 end
-        reconstructed_article_hash.merge!({"sentiment_score" => sentiment_score})
-
         company_name = /\[entity display\=\".+?\"/.match(article_hash["body"]).to_s[17..-2]
-        company_identifier = /key\=\".+?\"/.match(article_hash["body"]).to_s[5..-2]
-        forbes_url = "http://www.forbes.com/companies/#{company_identifier}/"
-        company_hash = {
-          "name" => company_name,
-          "forbes_url" => forbes_url,
-          "contacts" => [{}]
-        }
-        reconstructed_article_hash.merge!({"company" => company_hash})
-        @articles << reconstructed_article_hash
+        unless company_name.blank? || company_name.strip.blank?
+          reconstructed_article_hash = {}
+          reconstructed_article_hash.merge!({"stub" => article_hash["description"]})
+          reconstructed_article_hash.merge!({"title" => article_hash["title"]})
+          reconstructed_article_hash.merge!({"body" => begin article_hash["body"].gsub(/\[.*?\]/, '') rescue nil end })
+          reconstructed_article_hash.merge!({"published_date" => begin Time.at(article_hash["timestamp"].to_f / 1000).strftime("%b %e, %Y") rescue "Dec 13, 2013" end })
+          reconstructed_article_hash.merge!({"published_time" => begin Time.at(article_hash["timestamp"].to_f / 1000).strftime("%l:%M %P") rescue "20:13:28 -0500" end })
+          reconstructed_article_hash.merge!({"forbes_url" => article_hash["uri"]})
+          reconstructed_article_hash.merge!({"author" => begin article_hash["authors"][0]["name"] rescue "RJ Lehman" end })
+          article_body = Sanitize.clean(begin article_hash["body"].gsub(/\[.*?\]/, '') rescue nil end)
+          sentiment_score = begin SentimentAnalysis::sentiment_calculator(article_body, options) rescue 0.0 end
+          reconstructed_article_hash.merge!({"sentiment_score" => sentiment_score})
+
+          company_identifier = /key\=\".+?\"/.match(article_hash["body"]).to_s[5..-2]
+          forbes_url = "http://www.forbes.com/companies/#{company_identifier}/"
+          company_hash = {
+            "name" => company_name,
+            "forbes_url" => forbes_url,
+            "contacts" => [{}]
+          }
+          reconstructed_article_hash.merge!({"company" => company_hash})
+          @articles << reconstructed_article_hash
+        end
       end
     end
 

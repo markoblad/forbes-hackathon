@@ -30,20 +30,22 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         access_token = OAuth::AccessToken.new(consumer, user_token, user_secret)
          
         # Make call to LinkedIn to retrieve your own profile
-        response = access_token.get("http://api.linkedin.com/v1/people/~:(connections:(id,first-name,last-name,picture-url,headline,site-standard-profile-request:(url),positions:(company)))?format=json")
+        response = access_token.get("http://api.linkedin.com/v1/people/~:(connections:(id,first-name,last-name,picture-url,headline,site-standard-profile-request:(url),positions:(company)))?format=json&count=100")
 
         json = JSON.parse(response.body)
         parsed_connections = [];
         
-        json["connections"]["values"].each do |connection|
-            parsed_connections << {
-                "name" => begin "#{connection['firstName']} #{connection['lastName']}" rescue "" end,
-                "headline" => begin connection['headline'] rescue "" end, 
-                "image_url" => begin connection['pictureUrl'] rescue "" end, 
-                "linkedin_url" => begin connection['siteStandardProfileRequest']['url'] rescue "" end,
-                "positions" => begin connection['positions']['values'] rescue "" end,
-                "company" => begin connection["positions"]["values"][0]["company"]["name"] rescue nil end
-            } 
+        json["connections"]["values"].each_with_index do |connection, index|
+            unless index > 10
+                parsed_connections << {
+                    "name" => begin "#{connection['firstName']} #{connection['lastName']}" rescue "" end,
+                    "headline" => begin connection['headline'] rescue "" end, 
+                    "image_url" => begin connection['pictureUrl'] rescue "" end, 
+                    "linkedin_url" => begin connection['siteStandardProfileRequest']['url'] rescue "" end,
+                    "positions" => begin connection['positions']['values'] rescue "" end,
+                    "company" => begin connection["positions"]["values"][0]["company"]["name"] rescue nil end
+                } 
+            end
         end
 
 

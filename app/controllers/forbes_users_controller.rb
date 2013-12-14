@@ -16,8 +16,9 @@ class ForbesUsersController < ApplicationController
           if matching_contacts.blank?
             company_names = contacts.collect{|c| c["company"]}.compact
             closest_matches = []
-            closest_matches = ForbesUser.return_closest_levenshtein_names(company_name, company_names)
+            closest_matches = begin [ForbesUser.return_closest_levenshtein_names(company_name, company_names).sample].compact rescue [] end
             # closest_matches = ForbesUser.return_closest_white_names(company_name, company_names)
+
             matching_contacts = contacts.select{|c| closest_matches.include?(c["company"])}
           end
           

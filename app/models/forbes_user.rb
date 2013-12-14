@@ -103,7 +103,7 @@ class ForbesUser
 			else
 				similitudes = []
 				names.each do |name|
-					cleaned_name = name.name.upcase.gsub(/[^[[:word:]]\s]/, ' ').strip
+					cleaned_name = name.upcase.gsub(/[^[[:word:]]\s]/, ' ').strip
 					white = Text::WhiteSimilarity.new
 					similitudes << white.similarity(cleaned_name, name)
 				end

@@ -85,6 +85,7 @@ class ForbesUser
 				end
 				distance_min = distances.min
 				levenshtein_min_indexes = distances.each_with_index.select {|distance, index| distance == distance_min}
+				levenshtein_min_indexes.flatten!
 				levenshtein_min_indexes.compact! unless levenshtein_min_indexes.blank?
 				unless levenshtein_min_indexes.blank?
 					levenshtein_names = levenshtein_min_indexes.collect {|i| names[i]}

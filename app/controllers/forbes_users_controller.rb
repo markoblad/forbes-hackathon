@@ -11,12 +11,12 @@ class ForbesUsersController < ApplicationController
       unless article_hash["body"].blank?
         company_name = /\[entity display\=\".+?\"/.match(article_hash["body"]).to_s[17..-2]
         unless company_name.blank? || company_name.strip.blank?
+          matching_contacts = []
           matching_contacts = contacts.select{|c| c["company"] == company_name }
-          
-          if matching_contacts.nil?
-            company_names = contacts.collect{|c| c["name"]}.compact
-            closest_match = ForbesUser.return_closest_levenshtein_names(company_name, company_names)
-            matching_contacts = [contacts.detect{|c| c["company"] == closest_match}]
+          if matching_contacts.blank?
+            company_names = contacts.collect{|c| c["company"]}.compact
+            closest_matches = ForbesUser.return_closest_levenshtein_names(company_name, company_names)
+            matching_contacts = contacts.select{|c| closest_matches.include?(c["company"])}
           end
           
           reconstructed_article_hash = {}

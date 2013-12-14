@@ -37,11 +37,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         
         json["connections"]["values"].each do |connection|
             parsed_connections << {
-                "name" => "#{connection['firstName']} #{connection['lastName']}",
-                "headline" => connection['headline'], 
-                "image_url" => connection['pictureUrl'], 
-                "linkedin_url" => connection['siteStandardProfileRequest']['url'],
-                "positions" => connection['positions']['values'],
+                "name" => begin "#{connection['firstName']} #{connection['lastName']}" rescue "" end,
+                "headline" => begin connection['headline'] rescue "" end, 
+                "image_url" => begin connection['pictureUrl'] rescue "" end, 
+                "linkedin_url" => begin connection['siteStandardProfileRequest']['url'] rescue "" end,
+                "positions" => begin connection['positions']['values'] rescue "" end,
                 "company" => begin connection["positions"]["values"][0]["company"]["name"] rescue nil end
             } 
         end

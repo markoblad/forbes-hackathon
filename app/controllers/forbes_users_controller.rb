@@ -6,10 +6,19 @@ class ForbesUsersController < ApplicationController
 
     @articles = []
     articles_hash = ForbesUser::ForbesUser::get_articles({})
+    contacts = current_user.connections
     articles_hash["contentList"].each do |article_hash|
       unless article_hash["body"].blank?
         company_name = /\[entity display\=\".+?\"/.match(article_hash["body"]).to_s[17..-2]
         unless company_name.blank? || company_name.strip.blank?
+          matching_contacts = contacts.select{|c| c["company"] == company_name }
+          
+          if matching_contacts.nil?
+            company_names = contacts.collect{|c| c["name"]}.compact
+            closest_match = ForbesUser.return_closest_levenshtein_names(company_name, company_names)
+            matching_contacts = [contacts.detect{|c| c["company"] == closest_match}]
+          end
+
           reconstructed_article_hash = {}
           reconstructed_article_hash.merge!({"stub" => article_hash["description"]})
           reconstructed_article_hash.merge!({"title" => article_hash["title"]})
@@ -27,7 +36,7 @@ class ForbesUsersController < ApplicationController
           company_hash = {
             "name" => company_name,
             "forbes_url" => forbes_url,
-            "contacts" => [{}]
+            "contacts" => matching_contacts
           }
           reconstructed_article_hash.merge!({"company" => company_hash})
           @articles << reconstructed_article_hash

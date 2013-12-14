@@ -33,18 +33,21 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
         json = JSON.parse(response.body)
         parsed_connections = [];
-
+        
         json["connections"]["values"].each do |connection|
-            parsed_connections << {name: "#{connection['firstName']} #{connection['lastName']}",
-            headline: connection['headline'], 
-            image_url: connection['pictureUrl'], 
-            profile_url: connection['siteStandardProfileRequest']['url'],
-            positions: connection['positions']['values']
-        } 
+            parsed_connections << {
+                "name" => "#{connection['firstName']} #{connection['lastName']}",
+                "headline" => connection['headline'], 
+                "image_url" => connection['pictureUrl'], 
+                "linkedin_url" => connection['siteStandardProfileRequest']['url'],
+                "positions" => connection['positions']['values'],
+                "company" => begin connection["positions"]["values"][0]["company"]["name"] rescue nil end
+            } 
         end
 
-        
+
         user.connections = parsed_connections
+debugger
 
         #     url = "http://api.linkedin.com/v1/people/url=http%3A%2F%2Fwww.linkedin.com%2Fpub%2Fjoshua-martin%2F86%2F918%2F863/connections?oauth_token=75--fbafc2b6-26bc-448e-85d2-f8e04b6c2ea6&oauth_verifier=718798"
         #     xml = RestClient.get url

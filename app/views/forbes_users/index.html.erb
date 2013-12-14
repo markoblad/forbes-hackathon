@@ -11,7 +11,7 @@
          <div class="contacts-header">You have <%= article["company"]["contacts"].length %> contact(s) at <a href="<%= article["company"]["forbes_url"] %>"><%= begin article["company"]["name"].html_safe rescue "This Company" end %></a>
          </div>
        <% article["company"]["contacts"].each do |contact| %>
-	  <a href="<%= contact['linkedin_url'] %>" target="_blank"><img src="<%= contact['image_url'] %>" width="35" height="35" hspace="10" vspace="10"></a>
+	  <a href="<%= contact['linkedin_url'] %>" target="_blank"><img src="<%= contact['image_url'] %>" width="50" height="50" hspace="10" vspace="10"></a>
        <% end %>
        </div>
      </div>

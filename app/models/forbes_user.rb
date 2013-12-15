@@ -72,46 +72,49 @@ class ForbesUser
 		return hash
 	end
 
+	# reload!; ns = ForbesUser::return_closest_levenshtein_names("mark", ["marko", "paul", "markoblad", "marka", "karma", "ramk", "marc", "marco", "gram"])
 	def self.return_closest_levenshtein_names(name, names)
 		levenshtein_names = []
-		unless names.blank?
+		unless name.blank? || names.blank?
 			if names.size == 1
 				levenshtein_names = names
 			else
+				cleaned_target_name = name.upcase.gsub(/[^[[:word:]]\s]/, ' ').strip
 				distances = []
-				names.each do |name|
-					cleaned_name = name.upcase.gsub(/[^[[:word:]]\s]/, ' ').strip
-					distances << Text::Levenshtein.distance(cleaned_name, name)
+				names.each do |possible_match_name|
+					cleaned_possible_match_name = possible_match_name.upcase.gsub(/[^[[:word:]]\s]/, ' ').strip
+					distances << Text::Levenshtein.distance(cleaned_possible_match_name, cleaned_target_name)
 				end
 				distance_min = distances.min
 				levenshtein_min_indexes = distances.each_with_index.select {|distance, index| distance == distance_min}
-				levenshtein_min_indexes.flatten!
 				levenshtein_min_indexes.compact! unless levenshtein_min_indexes.blank?
 				unless levenshtein_min_indexes.blank?
-					levenshtein_names = levenshtein_min_indexes.collect {|i| names[i]}
+					levenshtein_names = levenshtein_min_indexes.collect {|distance, index| names[index]}
 				end
 			end
 		end
 		return levenshtein_names
 	end
 
+	# reload!; ns = ForbesUser::return_closest_white_names("mark", ["marko", "paul", "markoblad", "marka", "karma", "ramk", "marc", "marco", "gram"])
 	def self.return_closest_white_names(name, names)
 		white_names = []
 		unless names.blank?
 			if names.size == 1
 				white_names = names
 			else
+				cleaned_target_name = name.upcase.gsub(/[^[[:word:]]\s]/, ' ').strip
 				similitudes = []
-				names.each do |name|
-					cleaned_name = name.upcase.gsub(/[^[[:word:]]\s]/, ' ').strip
+				names.each do |possible_match_name|
+					cleaned_possible_match_name = possible_match_name.upcase.gsub(/[^[[:word:]]\s]/, ' ').strip
 					white = Text::WhiteSimilarity.new
-					similitudes << white.similarity(cleaned_name, name)
+					similitudes << white.similarity(cleaned_possible_match_name, cleaned_target_name)
 				end
 				similitude_max = similitudes.max
 				white_max_indexes = similitudes.each_with_index.select {|similitude, index| similitude == similitude_max}
 				white_max_indexes.compact! unless white_max_indexes.blank?
 				unless white_max_indexes.blank?
-					white_names = white_max_indexes.collect {|i| names[i]}
+					white_names = white_max_indexes.collect {|similitude, index| names[index]}
 				end
 			end
 		end
